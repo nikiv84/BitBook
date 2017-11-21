@@ -5,7 +5,7 @@
         "es6": true,
         "node": true
     },
-    "extends": "eslint:recommended",
+    "extends": ["plugin:react/recommended"],
     "parserOptions": {
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
@@ -17,7 +17,6 @@
         "react"
     ],
     "rules": {
-        "no-unused-vars": 1,
         "indent": [
             "error",
             4
@@ -30,7 +29,6 @@
             "error",
             "always"
         ],
-        "no-console": 0,
-        "react/jsx-uses-vars" : 1
+        "no-console": 0
     }
 }
