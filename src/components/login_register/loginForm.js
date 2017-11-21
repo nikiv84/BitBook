@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Communication from "../../service/communication";
 
 class LoginForm extends React.Component {
 
@@ -9,6 +10,7 @@ class LoginForm extends React.Component {
             username: "",
             password: ""
         };
+        this.commService = new Communication();
 
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -19,14 +21,12 @@ class LoginForm extends React.Component {
         this.setState({
             username: event.target.value
         });
-        console.log(this.state.username);
     }
 
     handlePasswordChange(event) {
         this.setState({
             password: event.target.value
         });
-        console.log(this.state.password);
     }
 
     saveHandler() {
@@ -34,7 +34,8 @@ class LoginForm extends React.Component {
             username: this.state.username,
             password: this.state.password
         };
-        return data;
+        this.commService.post("login", data, ()=>(console.log(result)));
+
     }
 
     render() {
