@@ -7,16 +7,31 @@ class ValidationService {
 
 
     isRegisterFormValid(data, callback) {
-
-        if(!this.hasAllRequiredFields(data) || !this.isPasswordValid(data) || !this.isUsernameValid(data) || !this.isNameValid(data) || !this.isEmailValid(data)) {
+        if(!this.isPasswordValid(data)){
+            callback("Password error!");
+        }
+        if(!this.isUsernameValid(data)){
+            callback("Username error!");
+        }
+        if(!this.isNameValid(data)){
+            callback("Name error!");
+        }
+        if(!this.isEmailValid(data)){
+            callback("Email error!");
             return false;
         }
+
+        // if(!this.hasAllRequiredFields(data) || !this.isPasswordValid(data) || !this.isUsernameValid(data) || !this.isNameValid(data) || !this.isEmailValid(data)) {
+        //     return false;
+        // }
         return true;
 
     }
+
     hasAllRequiredFields(data) {
         for (let key in data) {
             if (data[key] === "") {
+            
                 return false;
             }
         }
@@ -24,13 +39,15 @@ class ValidationService {
         return true;
     }
     isPasswordValid(data) {
-        if (data.password < 6) {
+        if (data.password.length < 6) {
+            console.log("Pass error!");
             return false;
         }
         return true;
     }
     isUsernameValid(data) {
-        if (data.username < 3) {
+        if (data.username.length < 3) {
+            console.log("Username error!");
             return false;
         }
         return true;
@@ -39,6 +56,7 @@ class ValidationService {
         const res = data.name.split(" ");
         for (const key in res) {
             if (res.length<2 || res[key].length < 2) {
+                console.log("Name error!");
                 return false;
             }
         }

@@ -13,7 +13,7 @@ class RegisterForm extends React.Component {
             email: "",
             password: "",
             isNotValid: false,
-            errorMsg: ""
+            errorMsg: []
         };
         this.initBind();
         this.authService = new AuthService();
@@ -52,6 +52,8 @@ class RegisterForm extends React.Component {
         });
     }
 
+
+
     registerHandler() {
         const data = {
             name: this.state.name,
@@ -61,10 +63,22 @@ class RegisterForm extends React.Component {
         };
 
 
-
-        if (this.validService.isRegisterFormValid(data)) {
+        if (!this.validService.isRegisterFormValid(data, (errorMsg) => {
+            let newArr = [];
+            newArr.push(errorMsg);
             this.setState({
-                isNotValid: false
+                isNotValid: true,
+                errorMsg: newArr
+            });
+
+        })) {
+            this.setState({
+                isNotValid: true,
+                errorMsg: "All fields must be filled out"
+            });
+        } else {
+            this.setState({
+                isNotValid: false,
             });
             this.authService.register(data, (error) => {
                 this.setState({
@@ -72,12 +86,27 @@ class RegisterForm extends React.Component {
                     errorMsg: error
                 });
             });
-        } else {
-            this.setState({
-                isNotValid: true,
-                errorMsg: "All fields must be filled out!"             
-            });
         }
+
+
+
+
+        // if (this.validService.isRegisterFormValid(data)) {
+        //     this.setState({
+        //         isNotValid: false
+        //     });
+        //     this.authService.register(data, (error) => {
+        //         this.setState({
+        //             isNotValid: true,
+        //             errorMsg: error
+        //         });
+        //     });
+        // } else {
+        //     this.setState({
+        //         isNotValid: true,
+        //         errorMsg: "All fields must be filled out!"             
+        //     });
+        // }
     }
 
     render() {
