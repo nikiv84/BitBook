@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../../service/authService";
+import ValidationService from "../../service/validationService";
 
 class RegisterForm extends React.Component {
 
@@ -10,10 +11,13 @@ class RegisterForm extends React.Component {
             name: "",
             username: "",
             email: "",
-            password: ""
+            password: "",
+            isNotValid: false,
+            errorMsg: ""
         };
         this.initBind();
         this.authService = new AuthService();
+        this.validService = new ValidationService();
     }
 
     initBind() {
@@ -55,11 +59,25 @@ class RegisterForm extends React.Component {
             password: this.state.password,
             email: this.state.email
         };
-        // if (data.name == "" || data.username == "" || data.password == "" || data.email == "") {
-        //     alert("Please fill out all fields!");
-        // } else {
-        this.authService.register(data);
-        // }
+
+
+
+        if (this.validService.isRegisterFormValid(data)) {
+            this.setState({
+                isNotValid: false
+            });
+            this.authService.register(data, (error) => {
+                this.setState({
+                    isNotValid: true,
+                    errorMsg: error
+                });
+            });
+        } else {
+            this.setState({
+                isNotValid: true,
+                errorMsg: "All fields must be filled out!"             
+            });
+        }
     }
 
     render() {
@@ -84,7 +102,7 @@ class RegisterForm extends React.Component {
                         <button className="waves-effect waves-light btn" onClick={this.registerHandler}>Register</button>
 
                     </form>
-
+                    <p id="error">{this.state.isNotValid ? `${this.state.errorMsg}` : ""}</p>
                 </div>
 
             </div>

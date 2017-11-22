@@ -2,11 +2,6 @@ import { BASE_URL, API_KEY, SESSION_ID_KEY } from "../constants";
 import axios from "axios";
 
 class CommunicationService {
-    constructor() {
-        this.get = this.get.bind(this);
-        this.postRequest = this.postRequest.bind(this);
-        this.createHeaders = this.createHeaders.bind(this);
-    }
     createHeaders() {
         const requestHeaders = {
             "Content-Type": "application/json",
@@ -39,7 +34,7 @@ class CommunicationService {
 
     }
 
-    postRequest(url, data, postDataHandler) {
+    postRequest(url, data, postDataHandler, errorHandler) {
         const requestUrl = `${BASE_URL}/${url}`;
         const headers = this.createHeaders();
         console.log(headers);
@@ -54,7 +49,7 @@ class CommunicationService {
                 console.log(result);
                 return postDataHandler(result);
             })
-            .catch((error) => console.log(error));
+            .catch((error) => errorHandler(error));
 
     }
 

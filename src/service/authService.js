@@ -12,8 +12,7 @@ class AuthService {
         return !!sessionStorage.getItem(SESSION_ID_KEY);
     }
 
-    login(data) {
-
+    login(data, callback) {
         this.commService.postRequest("login", data, (response) => {
             if (response.status === 200) {
                 console.log("TODO BIEN!");
@@ -21,14 +20,13 @@ class AuthService {
                 this.redirectService.redirectTo("/");
             }
         }, (error) => {
-            console.log(error);
+            callback(error.response.data.error.message);
         });
     }
 
     register(data) {
         this.commService.postRequest("register", data,
             (response) => {
-                console.log(response);
                 this.redirectService.redirectTo("/");                
             }, (error) => {
                 console.log(error);

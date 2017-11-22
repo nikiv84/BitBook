@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../../service/authService";
+import ValidationService from "../../service/validationService";
 
 class LoginForm extends React.Component {
 
@@ -8,10 +9,13 @@ class LoginForm extends React.Component {
         super(props);
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            isNotValid: false,
+            errorMsg: ""
         };
         this.initBind();
         this.authService = new AuthService();
+        this.validService = new ValidationService();
     }
 
     initBind() {
@@ -32,7 +36,6 @@ class LoginForm extends React.Component {
         });
     }
 
-
     login(sessID) {
         const sessionId = sessionStorage.setItem(SESSION_ID_KEY, JSON.stringify(sessID));
         console.log("Successfully logged in!");
@@ -43,11 +46,24 @@ class LoginForm extends React.Component {
             username: this.state.username,
             password: this.state.password
         };
-        if (data.username == "" || data.password == "") {
-            alert("Please fill out all fields!");
+
+        if (this.validService.isLoginFormValid(data)) {
+            this.setState({
+                isNotValid: false
+            });
+            this.authService.login(data, (error) => {
+                this.setState({
+                    isNotValid: true,
+                    errorMsg: error
+                });
+            });
         } else {
-            this.authService.login(data);
+            this.setState({
+                isNotValid: true,
+                errorMsg: "All fields must be filled out!"             
+            });
         }
+
     }
 
     render() {
@@ -68,6 +84,7 @@ class LoginForm extends React.Component {
                         <input id="password" type="password" onChange={this.handlePasswordChange} placeholder="Enter Password..." />
                         <button className="waves-effect waves-light btn" onClick={this.loginHandler}>Login</button>
                     </form>
+                    <p id="error">{this.state.isNotValid ? `${this.state.errorMsg}` : ""}</p>
                 </div>
             </div>
         );

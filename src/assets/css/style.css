@@ -4,3 +4,13 @@
     padding: 2rem !important;
     margin-top: 2rem;
 }
+li {
+    margin-right: 20px;
+    font-size: 20px;
+}
+.brand-logo {
+    margin-left: 25px;  
+}
+#error{
+    color: red;
+}
