@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Communication from "../../service/communication";
+import AuthService from "../../service/authService";
 
 class LoginForm extends React.Component {
 
@@ -10,11 +10,14 @@ class LoginForm extends React.Component {
             username: "",
             password: ""
         };
-        this.commService = new Communication();
+        this.initBind();
+        this.authService = new AuthService();
+    }
 
+    initBind() {
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.saveHandler = this.saveHandler.bind(this);
+        this.loginHandler = this.loginHandler.bind(this);
     }
 
     handleUsernameChange(event) {
@@ -29,13 +32,22 @@ class LoginForm extends React.Component {
         });
     }
 
-    saveHandler() {
+
+    login(sessID) {
+        const sessionId = sessionStorage.setItem(SESSION_ID_KEY, JSON.stringify(sessID));
+        console.log("Successfully logged in!");
+    }
+
+    loginHandler() {
         const data = {
             username: this.state.username,
             password: this.state.password
         };
-        this.commService.post("login", data, ()=>(console.log(result)));
-
+        if (data.username == "" || data.password == "") {
+            alert("Please fill out all fields!");
+        } else {
+            this.authService.login(data);
+        }
     }
 
     render() {
@@ -54,7 +66,7 @@ class LoginForm extends React.Component {
                         <input id="username" type="text" onChange={this.handleUsernameChange} placeholder="Enter Username..." />
                         <label htmlFor="password">Password:</label>
                         <input id="password" type="password" onChange={this.handlePasswordChange} placeholder="Enter Password..." />
-                        <button className="waves-effect waves-light btn" onClick={this.saveHandler}>Login</button>
+                        <button className="waves-effect waves-light btn" onClick={this.loginHandler}>Login</button>
                     </form>
                 </div>
             </div>
