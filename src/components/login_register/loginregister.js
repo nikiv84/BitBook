@@ -1,10 +1,10 @@
 import React from "react";
-import LoginForm from "./login_register/loginForm";
-import RegisterForm from "./login_register/registerForm";
+import LoginForm from "./loginForm";
+import RegisterForm from "./registerForm";
 import { Switch, Route } from "react-router-dom";
 
 
-const Main = (props) => {
+const LoginRegister = (props) => {
 
     return (
         <Switch>
@@ -15,4 +15,4 @@ const Main = (props) => {
     );
 };
 
-export default Main;
+export default LoginRegister;

@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import AuthService from "../../service/authService";
+import ValidationService from "../../service/validationService";
 
 class LoginForm extends React.Component {
 
@@ -7,34 +9,61 @@ class LoginForm extends React.Component {
         super(props);
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            isNotValid: false,
+            errorMsg: ""
         };
+        this.initBind();
+        this.authService = new AuthService();
+        this.validService = new ValidationService();
+    }
 
+    initBind() {
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.saveHandler = this.saveHandler.bind(this);
+        this.loginHandler = this.loginHandler.bind(this);
     }
 
     handleUsernameChange(event) {
         this.setState({
             username: event.target.value
         });
-        console.log(this.state.username);
     }
 
     handlePasswordChange(event) {
         this.setState({
             password: event.target.value
         });
-        console.log(this.state.password);
     }
 
-    saveHandler() {
+    login(sessID) {
+        const sessionId = sessionStorage.setItem(SESSION_ID_KEY, JSON.stringify(sessID));
+        console.log("Successfully logged in!");
+    }
+
+    loginHandler() {
         const data = {
             username: this.state.username,
             password: this.state.password
         };
-        return data;
+
+        if (this.validService.isLoginFormValid(data)) {
+            this.setState({
+                isNotValid: false
+            });
+            this.authService.login(data, (error) => {
+                this.setState({
+                    isNotValid: true,
+                    errorMsg: error
+                });
+            });
+        } else {
+            this.setState({
+                isNotValid: true,
+                errorMsg: "All fields must be filled out!"             
+            });
+        }
+
     }
 
     render() {
@@ -53,8 +82,9 @@ class LoginForm extends React.Component {
                         <input id="username" type="text" onChange={this.handleUsernameChange} placeholder="Enter Username..." />
                         <label htmlFor="password">Password:</label>
                         <input id="password" type="password" onChange={this.handlePasswordChange} placeholder="Enter Password..." />
-                        <button className="waves-effect waves-light btn" onClick={this.saveHandler}>Login</button>
+                        <button className="waves-effect waves-light btn registration" onClick={this.loginHandler}>Login</button>
                     </form>
+                    <p id="error">{this.state.isNotValid ? `${this.state.errorMsg}` : ""}</p>
                 </div>
             </div>
         );
