@@ -82,7 +82,7 @@ class LoginForm extends React.Component {
                         <input id="username" type="text" onChange={this.handleUsernameChange} placeholder="Enter Username..." />
                         <label htmlFor="password">Password:</label>
                         <input id="password" type="password" onChange={this.handlePasswordChange} placeholder="Enter Password..." />
-                        <button className="waves-effect waves-light btn" onClick={this.loginHandler}>Login</button>
+                        <button className="waves-effect waves-light btn registration" onClick={this.loginHandler}>Login</button>
                     </form>
                     <p id="error">{this.state.isNotValid ? `${this.state.errorMsg}` : ""}</p>
                 </div>

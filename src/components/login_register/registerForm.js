@@ -60,8 +60,6 @@ class RegisterForm extends React.Component {
         });
     }
 
-
-
     registerHandler() {
         const data = {
             name: this.state.name,
@@ -90,50 +88,7 @@ class RegisterForm extends React.Component {
             });
         }
 
-        // if (!this.validService.isRegisterFormValid(data, (errorMsg) => {
-        //     let newArr = [];
-        //     newArr.push(errorMsg);
-        //     this.setState({
-        //         isNotValid: true,
-        //         errorMsg: newArr
-        //     });
-
-        // })) {
-        //     this.setState({
-        //         isNotValid: true,
-        //         errorMsg: "All fields must be filled out"
-        //     });
-        // } else {
-        //     this.setState({
-        //         isNotValid: false,
-        //     });
-        //     this.authService.register(data, (error) => {
-        //         this.setState({
-        //             isNotValid: true,
-        //             errorMsg: error
-        //         });
-        //     });
-        // }
-
-
-
-
-        // if (this.validService.isRegisterFormValid(data)) {
-        //     this.setState({
-        //         isNotValid: false
-        //     });
-        //     this.authService.register(data, (error) => {
-        //         this.setState({
-        //             isNotValid: true,
-        //             errorMsg: error
-        //         });
-        //     });
-        // } else {
-        //     this.setState({
-        //         isNotValid: true,
-        //         errorMsg: "All fields must be filled out!"             
-        //     });
-        // }
+       
     }
 
     render() {
@@ -142,7 +97,7 @@ class RegisterForm extends React.Component {
                 <div className="col s12">
                     <ul className="tabs">
                         <li className="tab col s6"><Link to={"/login"}>Login</Link></li>
-                        <li className="tab col s6"><Link to={"/register"}>Register</Link></li>
+                        <li className="tab col s6"><Link to={"/register"} className="active">Register</Link></li>
                     </ul>
                 </div>
                 <div className="col s12">
@@ -157,7 +112,7 @@ class RegisterForm extends React.Component {
                         <input id="password" type="password" onChange={this.handlePasswordChange} placeholder="Enter Password..." />
                         <label htmlFor="repeat-password">Confirm Password:</label>
                         <input id="repeat-password" type="password" onChange={this.handleRepeatPasswordChange} placeholder="Re-enter Password..." />
-                        <button className="waves-effect waves-light btn" onClick={this.registerHandler}>Register</button>
+                        <button className="waves-effect waves-light btn registration" onClick={this.registerHandler}>Register</button>
 
                     </form>
                     <p id="error">{this.state.isNotValid ? `${this.state.errorMsg}` : ""}</p>

@@ -17,21 +17,20 @@ class CommunicationService {
         return requestHeaders;
     }
 
-
-    get(url, getDataHandler, errorHandler) {
-
+    getRequest(url, getDataHandler, errorHandler) {
         const requestUrl = `${BASE_URL}/${url}`;
-
-        const params = {
+        const headers = this.createHeaders();
+        axios({
             method: "GET",
-            headers: this.createHeaders(),
-        };
-
-        fetch(requestUrl, params)
-            .then((response) => response.json())
-            .then((response) => getDataHandler(response))
+            headers: headers,
+            url: requestUrl,
+            json: true
+        })
+            .then(result => {
+                console.log(result);
+                return getDataHandler(result);
+            })
             .catch((error) => errorHandler(error));
-
     }
 
     postRequest(url, data, postDataHandler, errorHandler) {

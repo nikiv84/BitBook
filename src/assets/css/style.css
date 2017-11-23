@@ -1,8 +1,20 @@
+body {
+    background: url(../img/bg.jpg) no-repeat;
+    background-size: cover;
+    background-position-y: 100%;
+    min-height: calc(100vh - 20px);
+    box-sizing: border-box;
+    margin:0;
+    padding: 0;
+
+}
+
 .bitform {
-    border: 1px solid #000;
+    border: 1px solid #5c7d72;
     /* height: 300px; */
     padding: 2rem !important;
     margin-top: 2rem;
+    border-radius: 15px;
 }
 li {
     margin-right: 20px;
@@ -13,4 +25,22 @@ li {
 }
 #error{
     color: red;
+}
+
+.tabs li.tab a.active {
+    background-color: #ee6e73;
+    color: #fff;
+    border-radius: 5px 5px 0 0;
+}
+
+form {
+    margin-top: 2rem;
+}
+
+button.registration {
+    margin-top: 1rem;
+}
+img {
+    margin-top: 15px;
+    width: 100px;
 }
