@@ -12,6 +12,7 @@ class RegisterForm extends React.Component {
             username: "",
             email: "",
             password: "",
+            repeatPassword: "",
             isNotValid: false,
             errorMsg: []
         };
@@ -25,6 +26,8 @@ class RegisterForm extends React.Component {
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleRepeatPasswordChange = this.handleRepeatPasswordChange.bind(this);
+
         this.registerHandler = this.registerHandler.bind(this);
     }
 
@@ -45,6 +48,11 @@ class RegisterForm extends React.Component {
             password: event.target.value
         });
     }
+    handleRepeatPasswordChange(event) {
+        this.setState({
+            repeatPassword: event.target.value
+        });
+    }
 
     handleEmailChange(event) {
         this.setState({
@@ -59,24 +67,18 @@ class RegisterForm extends React.Component {
             name: this.state.name,
             username: this.state.username,
             password: this.state.password,
+            repeatPassword: this.state.repeatPassword,
             email: this.state.email
         };
 
 
-        if (!this.validService.isRegisterFormValid(data, (errorMsg) => {
-            let newArr = [];
-            newArr.push(errorMsg);
+        if(this.validService.isRegisterFormValid(data, (errorMsgs)=>{
+            let newarr = errorMsgs;
             this.setState({
                 isNotValid: true,
-                errorMsg: newArr
+                errorMsg: newarr
             });
-
-        })) {
-            this.setState({
-                isNotValid: true,
-                errorMsg: "All fields must be filled out"
-            });
-        } else {
+        })){
             this.setState({
                 isNotValid: false,
             });
@@ -87,6 +89,31 @@ class RegisterForm extends React.Component {
                 });
             });
         }
+
+        // if (!this.validService.isRegisterFormValid(data, (errorMsg) => {
+        //     let newArr = [];
+        //     newArr.push(errorMsg);
+        //     this.setState({
+        //         isNotValid: true,
+        //         errorMsg: newArr
+        //     });
+
+        // })) {
+        //     this.setState({
+        //         isNotValid: true,
+        //         errorMsg: "All fields must be filled out"
+        //     });
+        // } else {
+        //     this.setState({
+        //         isNotValid: false,
+        //     });
+        //     this.authService.register(data, (error) => {
+        //         this.setState({
+        //             isNotValid: true,
+        //             errorMsg: error
+        //         });
+        //     });
+        // }
 
 
 
@@ -128,6 +155,8 @@ class RegisterForm extends React.Component {
                         <input id="email" type="email" onChange={this.handleEmailChange} placeholder="Enter Email..." />
                         <label htmlFor="password">Password:</label>
                         <input id="password" type="password" onChange={this.handlePasswordChange} placeholder="Enter Password..." />
+                        <label htmlFor="repeat-password">Confirm Password:</label>
+                        <input id="repeat-password" type="password" onChange={this.handleRepeatPasswordChange} placeholder="Re-enter Password..." />
                         <button className="waves-effect waves-light btn" onClick={this.registerHandler}>Register</button>
 
                     </form>

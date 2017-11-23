@@ -24,12 +24,12 @@ class AuthService {
         });
     }
 
-    register(data) {
+    register(data, callback) {
         this.commService.postRequest("register", data,
             (response) => {
                 this.redirectService.redirectTo("/");                
             }, (error) => {
-                console.log(error);
+                callback(error.response.data.error.message);
             });
     }
 
