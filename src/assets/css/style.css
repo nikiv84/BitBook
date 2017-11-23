@@ -40,7 +40,31 @@ form {
 button.registration {
     margin-top: 1rem;
 }
-img {
-    margin-top: 15px;
-    width: 100px;
+
+
+.center-content {
+    text-align: center;
+    margin: 0 auto;
+}
+
+#logout {
+    padding: 5px 10px;
+    line-height: 1;
+    font-size: 0.8rem;
+    margin-left: 3rem;
+}
+.profile {
+    margin-top: 5rem;
+}
+
+.btn-floating.halfway-fab.editprofile {
+    bottom: 125px;
+}
+
+.ReactModal__Overlay.ReactModal__Overlay--after-open{
+    z-index: 1000;
+}
+
+.closebtn {
+    float: right;
 }

@@ -32,6 +32,7 @@ class AuthService {
                 callback(error.response.data.error.message);
             });
     }
+   
 
     logOut() {
         sessionStorage.removeItem(SESSION_ID_KEY);
