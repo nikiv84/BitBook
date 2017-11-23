@@ -8,8 +8,8 @@ class DataService{
     }
     getProfile(callback){
         this.commService.getRequest("profile", (result)=>{
-            const {name, about, postsCount, commentsCount, aboutShort, avatarUrl} = result.data;
-            const profile = new ProfileDTO(name, aboutShort, about, avatarUrl, postsCount, commentsCount);
+            const {name, email, about, postsCount, commentsCount, aboutShort, avatarUrl} = result.data;
+            const profile = new ProfileDTO(name, email, aboutShort, about, avatarUrl, postsCount, commentsCount);
             callback(profile);
         }, (error) =>{
             console.log("Profile not found;");

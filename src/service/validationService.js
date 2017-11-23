@@ -4,7 +4,9 @@ class ValidationService {
     isLoginFormValid(data) {
         return this.hasAllRequiredFields(data);
     }
-
+    isEditFormValid(data) {
+        
+    }
 
     isRegisterFormValid(data, callback) {
         let errorMsgs = [];

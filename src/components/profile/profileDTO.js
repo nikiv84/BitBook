@@ -1,10 +1,11 @@
 export default class ProfileDTO {
 
-    constructor(name, aboutShort, about, avatarUrl, postsCount, commentsCount){
+    constructor(name, email, aboutShort, about, avatarUrl, postsCount, commentsCount){
      
         this._name = name;
         this._aboutShort = aboutShort;
         this._about = about;
+        this._email = email;
         this._avatarUrl = avatarUrl;
         this._postsCount = postsCount;
         this._commentsCount = commentsCount;
@@ -13,6 +14,9 @@ export default class ProfileDTO {
     
     get name(){
         return this._name;
+    }
+    get email(){
+        return this._email;
     }
     get aboutShort(){
         return this._aboutShort;
@@ -33,6 +37,9 @@ export default class ProfileDTO {
 
     set name(newName){
         this._name = newName;
+    }
+    set email(newEmail){
+        this._email = newEmail;
     }
     set aboutShort(newAboutShort){
         this._aboutShort = newAboutShort;

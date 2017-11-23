@@ -49,7 +49,24 @@ class CommunicationService {
                 return postDataHandler(result);
             })
             .catch((error) => errorHandler(error));
+    }
 
+    putRequest(url, data, putDataHandler, putErrorHandler) {
+        const requestUrl = `${BASE_URL}/${url}`;
+        const headers = this.createHeaders();
+        axios({
+            method: "PUT",
+            url: requestUrl,
+            data: JSON.stringify(data),
+            headers: headers,
+            json: true
+        })
+            .then(result => {
+                return putDataHandler(result);
+            })
+            .catch((error) => {
+                putErrorHandler(error);
+            });
     }
 
 }
