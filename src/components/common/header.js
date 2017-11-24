@@ -1,5 +1,6 @@
 import React from "react";
 import AuthService from "../../service/authService";
+import { Link } from "react-router-dom";
 
 class Header extends React.Component {
     constructor(props) {
@@ -8,7 +9,7 @@ class Header extends React.Component {
         this.authService = new AuthService();
     }
 
-    handleLogout(event) {
+    handleLogout() {
         this.authService.logOut();
     }
     render() {
@@ -19,15 +20,16 @@ class Header extends React.Component {
                         <a href="#" className="brand-logo">BitBook</a>
                         <a href="#" data-target="mobile-demo" className="sidenav-trigger button-collapse"><i className="material-icons">menu</i></a>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
-                            <li><a href="sass.html">Feed</a></li>
-                            <li><a href="badges.html">People</a></li>
-                            <li><a href="collapsible.html">Profile</a></li>
+                            <li><Link to={"/feed"}>Feed</Link></li>
+                            <li><Link to={"/people"}>People</Link></li>
+                            <li><Link to={"/profile"}>Profile</Link></li>
                             <li><button id="logout" className="waves-effect waves-light btn" onClick={this.handleLogout}>Log out</button></li>
                         </ul>
                         <ul className="sidenav" id="mobile-demo">
-                            <li><a href="sass.html">Feed</a></li>
-                            <li><a href="badges.html">People</a></li>
-                            <li><a href="collapsible.html">Profile</a></li>
+                            <li><Link to={"/feed"}>Feed</Link></li>
+                            <li><Link to={"/people"}>People</Link></li>
+                            <li><Link to={"/profile"}>Profile</Link></li>
+                            <li><button id="logout" className="waves-effect waves-light btn" onClick={this.handleLogout}>Log out</button></li>
                         </ul>
                     </div>
                 </div>

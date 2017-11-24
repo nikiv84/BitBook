@@ -1,10 +1,9 @@
 import React from "react";
-import Header from "./header";
 import AuthService from "../../service/authService";
 import DataService from "../../service/dataService";
-import Profile from "../profile/profile";
+import Profile from "./profile";
 
-class Main extends React.Component {
+class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
         this.authService = new AuthService();
@@ -40,13 +39,10 @@ class Main extends React.Component {
         }
         return (
             <div>
-
-                <Header />
                 <Profile profile={this.state.profile} />
-
             </div>
         );
     }
 };
 
-export default Main;
+export default ProfilePage;

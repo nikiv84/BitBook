@@ -38,7 +38,6 @@ class LoginForm extends React.Component {
 
     login(sessID) {
         const sessionId = sessionStorage.setItem(SESSION_ID_KEY, JSON.stringify(sessID));
-        console.log("Successfully logged in!");
     }
 
     loginHandler() {
@@ -60,7 +59,7 @@ class LoginForm extends React.Component {
         } else {
             this.setState({
                 isNotValid: true,
-                errorMsg: "All fields must be filled out!"             
+                errorMsg: "All fields must be filled out!"
             });
         }
 

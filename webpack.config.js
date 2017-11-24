@@ -6,7 +6,7 @@ module.exports = {
         publicPath: "/"
     },
     devServer: {
-        contentBase: __dirname + "/src"
+        contentBase: __dirname + "/src",
     },
     module: {
         loaders: [
