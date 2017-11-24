@@ -8,6 +8,7 @@ body {
     box-sizing: border-box;
     margin:0;
     padding: 0;
+    background-attachment: fixed;
 }
 
 .bitform {
@@ -73,4 +74,21 @@ button.registration {
 
 .closebtn {
     float: right;
+}
+
+/* .card {
+    height: 600px;
+} */
+
+.eqWrap {
+	display: flex;
+}
+
+.equalHW {
+	flex: 1;
+}
+
+.equalHMRWrap {
+	justify-content: space-between;
+	flex-wrap: wrap;
 }

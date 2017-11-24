@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Modal from "react-modal";
 import DataService from "../../service/dataService";
 import CommunicationService from "../../service/communicationService";
+import ValidationService from "../../service/validationService";
 
 const customStyles = {
     content: {
@@ -24,13 +25,16 @@ export default class EditProfile extends React.Component {
         this.initBind();
         this.dataService = new DataService();
         this.commService = new CommunicationService();
+        this.validService = new ValidationService();
         this.state = {
             modalIsOpen: false,
             name: "",
             email: "",
             about: "",
             aboutShort: "",
-            avatar: ""
+            avatar: "",
+            isNotValid: false,
+            errorMsg: []
         };
     }
 
@@ -77,14 +81,27 @@ export default class EditProfile extends React.Component {
             aboutShort: this.state.aboutShort,
             avatarUrl: this.state.avatar
         };
-        console.log(data);
 
-        this.dataService.updateProfile(data, (error) => {
-            this.closeModal();
-            alert("Error!");
-        });
-        this.closeModal();
 
+        if (this.validService.isEditFormValid(data, (errorMsgs) => {
+            let newarr = errorMsgs;
+            this.setState({
+                isNotValid: true,
+                errorMsg: newarr
+            });
+        })) {
+            this.setState({
+                isNotValid: false,
+            });
+
+            this.dataService.updateProfile(data, (error) => {
+                this.setState({
+                    isNotValid: true,
+                    errorMsg: error
+                });
+
+            });
+        }
     }
 
     handleChange(event, name) {
@@ -97,7 +114,8 @@ export default class EditProfile extends React.Component {
     }
 
     closeModal() {
-        this.setState({ modalIsOpen: false });
+        // this.setState({ modalIsOpen: false });
+        this.props.clickedOnClose();
     }
 
     render() {
@@ -120,6 +138,7 @@ export default class EditProfile extends React.Component {
                         <input name={this.state.avatar} type="text" placeholder="New profile image URL" onChange={(e) => this.handleChange(e, "avatar")} defaultValue={this.state.avatar} />
                         <button onClick={this.saveChanges} className="waves-effect waves-light btn">Save Changes</button>
                         <button onClick={this.closeModal} className="waves-effect waves-light btn closebtn">Close</button>
+                        <p id="error">{this.state.isNotValid ? `${this.state.errorMsg}` : ""}</p>
                     </div>
                 </Modal>
             </div>
@@ -133,5 +152,6 @@ EditProfile.propTypes = {
     about: PropTypes.string,
     posts: PropTypes.number,
     comments: PropTypes.number,
-    clickedOnEdit: PropTypes.bool
+    clickedOnEdit: PropTypes.bool,
+    clickedOnClose: PropTypes.func
 };

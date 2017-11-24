@@ -4,44 +4,67 @@ class ValidationService {
     isLoginFormValid(data) {
         return this.hasAllRequiredFields(data);
     }
-    isEditFormValid(data) {
-        
-    }
-
-    isRegisterFormValid(data, callback) {
+    isEditFormValid(data, callback) {
         let errorMsgs = [];
 
-        if(!this.hasAllRequiredFields(data)){
+        if (!this.hasAllRequiredFields(data)) {
             errorMsgs.push("All fields must be filled out!");
             callback(errorMsgs);
             return false;
         }
 
-        if(!this.isNameValid(data)){
+        if (!this.isNameValid(data)) {
+            errorMsgs.push("Name must contain first and last name!");
+            callback(errorMsgs);
+            return false;
+        }
+        if (!this.isEmailValid(data)) {
+            errorMsgs.push("Email is not in valid format!");
+            callback(errorMsgs);
+            return false;
+        }
+        if (!this.isLinkValid(data)) {
+            errorMsgs.push("Link is not in valid format!");
+            callback(errorMsgs);
+            return false;
+        }
+        return true;
+    }
+
+    isRegisterFormValid(data, callback) {
+        let errorMsgs = [];
+
+        if (!this.hasAllRequiredFields(data)) {
+            errorMsgs.push("All fields must be filled out!");
+            callback(errorMsgs);
+            return false;
+        }
+
+        if (!this.isNameValid(data)) {
             errorMsgs.push("Name must contain first and last name!");
             callback(errorMsgs);
             return false;
         }
 
-        if(!this.isUsernameValid(data)){
+        if (!this.isUsernameValid(data)) {
             errorMsgs.push("Username must be longer than 3 characters!");
             callback(errorMsgs);
             return false;
         }
 
-        if(!this.isEmailValid(data)){
+        if (!this.isEmailValid(data)) {
             errorMsgs.push("Email is not invalid format!");
             callback(errorMsgs);
             return false;
         }
 
-        if(!this.isPasswordValid(data)){
+        if (!this.isPasswordValid(data)) {
             errorMsgs.push("Password must be longer than 6 characters!");
             callback(errorMsgs);
             return false;
         }
 
-        if(!this.isPasswordConfirm(data)){
+        if (!this.isPasswordConfirm(data)) {
             errorMsgs.push("Passwords must match!");
             callback(errorMsgs);
             return false;
@@ -54,7 +77,6 @@ class ValidationService {
     hasAllRequiredFields(data) {
         for (let key in data) {
             if (data[key] === "") {
-            
                 return false;
             }
         }
@@ -66,13 +88,13 @@ class ValidationService {
             console.log("Pass error!");
             return false;
         }
-      
+
         return true;
     }
     isPasswordConfirm(data) {
         if (data.password != data.repeatPassword) {
             console.log("Passwords must match");
-            return false; 
+            return false;
         }
         return true;
     }
@@ -87,16 +109,21 @@ class ValidationService {
     isNameValid(data) {
         const res = data.name.split(" ");
         for (const key in res) {
-            if (res.length<2 || res[key].length < 2) {
+            if (res.length < 2 || res[key].length < 2) {
                 console.log("Name error!");
                 return false;
             }
         }
         return true;
     }
-    isEmailValid(data) {   
+    isEmailValid(data) {
         const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         const isOK = re.test(data.email);
+        return isOK;
+    }
+    isLinkValid(data) {
+        const re = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+        const isOK = re.test(data.avatarUrl);
         return isOK;
     }
 }

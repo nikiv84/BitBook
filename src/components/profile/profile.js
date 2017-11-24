@@ -3,6 +3,7 @@ import { AVATAR_PLACEHOLDER } from "../../constants";
 import PropTypes from "prop-types";
 import EditProfile from "./editProfile";
 import DataService from "../../service/dataService";
+import User from "../profile/user";
 
 const customStyles = {
     content: {
@@ -21,38 +22,25 @@ export default class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.dataService = new DataService();
+
         this.state = {
-            clickedOnEdit: false,
-            name: "",
-            email: "",
-            about: "",
-            shortabout: "",
-            avatar: ""
+            clickedOnEdit: false
         };
-        this.getProfileEditData = this.getProfileEditData.bind(this);
+
+        this.clickedOnClose = this.clickedOnClose.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
     }
 
-    componentDidMount() {
-        this.getProfileEditData();
-    }
-
-    getProfileEditData() {
-        this.dataService.getProfile((profileData) => {
-            this.setState({
-                name: profileData.name,
-                email: profileData.email,
-                about: profileData.about,
-                shortabout: profileData.aboutShort,
-                avatar: profileData.avatarUrl
-            });
+    clickedOnClose() {
+        this.setState({
+            clickedOnEdit: false
         });
     }
-    handleEdit(){
+
+    handleEdit() {
         this.setState({
             clickedOnEdit: true
         });
-        console.log("Hey");
     }
 
     render() {
@@ -68,12 +56,12 @@ export default class Profile extends React.Component {
             <div className="container">
                 <div className="row">
                     <div className="col s12 m6 offset-m3 l4 offset-l4 profile center-content">
-                        <div className="card">
+                        <div className="card large">
                             <div className="card-image waves-effect waves-block waves-light">
                                 <img src={`${avatarSrc}`} />
                             </div>
                             <div className="card-content">
-                                <p onClick={this.handleEdit} className="btn-floating halfway-fab waves-effect waves-light red editprofile" title="Edit profile"><i className="material-icons">create</i></p>
+                                {this.props.me ? <p onClick={this.handleEdit} className="btn-floating halfway-fab waves-effect waves-light red editprofile" title="Edit profile"><i className="material-icons">create</i></p> : ""}
                                 <h4>{this.props.profile.name}</h4>
                                 <p>{this.props.profile.about}</p>
                                 <p>{this.props.profile.postsCount} posts</p>
@@ -81,7 +69,7 @@ export default class Profile extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <EditProfile clickedOnEdit={this.state.clickedOnEdit} />
+                    {this.props.me ? <EditProfile clickedOnEdit={this.state.clickedOnEdit} clickedOnClose={this.clickedOnClose} /> : ""}
                 </div>
             </div>
         );
@@ -93,5 +81,12 @@ Profile.propTypes = {
     name: PropTypes.string,
     about: PropTypes.string,
     posts: PropTypes.number,
-    comments: PropTypes.number
+    comments: PropTypes.number,
+    match: PropTypes.func,
+    me: PropTypes.bool
+};
+
+
+Profile.defaultParams = {
+    me: false
 };
