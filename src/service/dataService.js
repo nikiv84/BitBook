@@ -15,6 +15,16 @@ class DataService{
             console.log("Profile not found;");
         });
     }
+    updateProfile(data, errorHandler) {
+        this.commService.putRequest("Profiles", data, (response) => {
+            if (response.status >= 200 && response.status < 300) {
+                window.location.reload();
+            }
+        }, (serverErrorObject) => {
+            console.log(serverErrorObject);
+            errorHandler(serverErrorObject);
+        });
+    }
 
 }
 export default DataService;

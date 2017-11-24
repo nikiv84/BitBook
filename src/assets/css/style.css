@@ -58,8 +58,13 @@ button.registration {
     margin-top: 5rem;
 }
 
+.card .card-content {
+    position: relative;
+}
+
 .btn-floating.halfway-fab.editprofile {
-    bottom: 125px;
+    top: 5%;
+    right: 3%;
 }
 
 .ReactModal__Overlay.ReactModal__Overlay--after-open{

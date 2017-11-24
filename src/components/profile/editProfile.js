@@ -29,7 +29,7 @@ export default class EditProfile extends React.Component {
             name: "",
             email: "",
             about: "",
-            shortabout: "",
+            aboutShort: "",
             avatar: ""
         };
     }
@@ -37,7 +37,7 @@ export default class EditProfile extends React.Component {
     initBind() {
         this.handleEdit = this.handleEdit.bind(this);
         this.closeModal = this.closeModal.bind(this);
-        this.handleProfileEdit = this.handleProfileEdit.bind(this);
+        this.saveChanges = this.saveChanges.bind(this);
         this.getProfileEditData = this.getProfileEditData.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -46,39 +46,54 @@ export default class EditProfile extends React.Component {
         this.setState({ modalIsOpen: true });
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         this.setState({
             modalIsOpen: nextProps.clickedOnEdit
         });
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getProfileEditData();
     }
 
-    getProfileEditData(){
+    getProfileEditData() {
         this.dataService.getProfile((profileData) => {
             this.setState({
                 name: profileData.name,
                 email: profileData.email,
                 about: profileData.about,
-                shortabout: profileData.aboutShort,
+                aboutShort: profileData.aboutShort,
                 avatar: profileData.avatarUrl
             });
         });
     }
 
-    handleProfileEdit(){
-        // this.commService.putRequest("Profiles",)
+    saveChanges() {
+        event.preventDefault();
+        let data = {
+            name: this.state.name,
+            email: this.state.email,
+            about: this.state.about,
+            aboutShort: this.state.aboutShort,
+            avatarUrl: this.state.avatar
+        };
+        console.log(data);
+
+        this.dataService.updateProfile(data, (error) => {
+            this.closeModal();
+            alert("Error!");
+        });
+        this.closeModal();
+
     }
 
-    handleChange(event, name){
+    handleChange(event, name) {
         const value = event.target.value;
         this.setState({
             [name]: value
         });
         console.log(value);
-        
+
     }
 
     closeModal() {
@@ -96,16 +111,16 @@ export default class EditProfile extends React.Component {
                     style={customStyles}
                     contentLabel="Example Modal"
                 >
-                    <form>
+                    <div>
                         <h5>Edit profile</h5>
                         <input type="text" name={this.state.name} placeholder="Edit name" onChange={(e) => this.handleChange(e, "name")} defaultValue={this.state.name} />
                         <input type="email" name={this.state.email} placeholder="Edit email" onChange={(e) => this.handleChange(e, "email")} defaultValue={this.state.email} />
-                        <textarea name={this.state.about} placeholder="Edit about" style={{"height": "120px"}} onChange={(e) => this.handleChange(e, "about")} defaultValue={this.state.about}/>
-                        <textarea name={this.state.shortabout} placeholder="Edit short about" style={{"height": "60px"}} onChange={(e) => this.handleChange(e, "shortabout")} defaultValue={this.state.shortabout} />
+                        <textarea name={this.state.about} placeholder="Edit about" style={{ "height": "120px" }} onChange={(e) => this.handleChange(e, "about")} defaultValue={this.state.about} />
+                        <textarea name={this.state.aboutShort} placeholder="Edit short about" style={{ "height": "60px" }} onChange={(e) => this.handleChange(e, "aboutShort")} defaultValue={this.state.aboutShort} />
                         <input name={this.state.avatar} type="text" placeholder="New profile image URL" onChange={(e) => this.handleChange(e, "avatar")} defaultValue={this.state.avatar} />
-                        <button onClick={this.handleProfileEdit} className="waves-effect waves-light btn">Save Changes</button>
-                        <button onClick={this.closeModal} className="waves-effect waves-light btn closebtn">close</button>
-                    </form>
+                        <button onClick={this.saveChanges} className="waves-effect waves-light btn">Save Changes</button>
+                        <button onClick={this.closeModal} className="waves-effect waves-light btn closebtn">Close</button>
+                    </div>
                 </Modal>
             </div>
         );
