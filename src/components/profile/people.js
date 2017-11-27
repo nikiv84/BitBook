@@ -41,7 +41,6 @@ export default class People extends React.Component {
         const filteredList = currentList.filter((item) => {
             return item.name.toLowerCase().includes(searchString.toLowerCase());
         });
-        console.log(filteredList);
 
         this.setState({ filteredUsers: filteredList });
     }
@@ -51,7 +50,6 @@ export default class People extends React.Component {
             this.setState({
                 me: profileData.userId
             });
-            console.log(profileData.userId);
         });
     }
 

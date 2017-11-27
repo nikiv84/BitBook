@@ -4,6 +4,7 @@ class ValidationService {
     isLoginFormValid(data) {
         return this.hasAllRequiredFields(data);
     }
+
     isEditFormValid(data, callback) {
         let errorMsgs = [];
 
@@ -85,7 +86,6 @@ class ValidationService {
     }
     isPasswordValid(data) {
         if (data.password.length < 6) {
-            console.log("Pass error!");
             return false;
         }
 
@@ -93,7 +93,6 @@ class ValidationService {
     }
     isPasswordConfirm(data) {
         if (data.password != data.repeatPassword) {
-            console.log("Passwords must match");
             return false;
         }
         return true;
@@ -101,7 +100,6 @@ class ValidationService {
 
     isUsernameValid(data) {
         if (data.username.length < 3) {
-            console.log("Username error!");
             return false;
         }
         return true;
@@ -110,7 +108,6 @@ class ValidationService {
         const res = data.name.split(" ");
         for (const key in res) {
             if (res.length < 2 || res[key].length < 2) {
-                console.log("Name error!");
                 return false;
             }
         }

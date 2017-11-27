@@ -8,18 +8,20 @@ class CommunicationService {
             "Accept": "application/json",
             "Key": API_KEY
         };
+        
         const sessionId = sessionStorage.getItem(SESSION_ID_KEY);
 
         if (sessionId) {
             requestHeaders.SessionID = sessionId;
-            return requestHeaders;
         }
+
         return requestHeaders;
     }
 
     getRequest(url, getDataHandler, errorHandler) {
         const requestUrl = `${BASE_URL}/${url}`;
         const headers = this.createHeaders();
+
         axios({
             method: "GET",
             headers: headers,
@@ -27,7 +29,6 @@ class CommunicationService {
             json: true
         })
             .then(result => {
-                console.log(result);
                 return getDataHandler(result);
             })
             .catch((error) => errorHandler(error));
@@ -36,16 +37,15 @@ class CommunicationService {
     postRequest(url, data, postDataHandler, errorHandler) {
         const requestUrl = `${BASE_URL}/${url}`;
         const headers = this.createHeaders();
-        console.log(headers);
+
         axios({
             method: "POST",
             url: requestUrl,
-            data: JSON.stringify(data),
+            data: data,
             headers: headers,
             json: true
         })
             .then(result => {
-                console.log(result);
                 return postDataHandler(result);
             })
             .catch((error) => errorHandler(error));
@@ -54,6 +54,7 @@ class CommunicationService {
     putRequest(url, data, putDataHandler, putErrorHandler) {
         const requestUrl = `${BASE_URL}/${url}`;
         const headers = this.createHeaders();
+
         axios({
             method: "PUT",
             url: requestUrl,
@@ -61,7 +62,6 @@ class CommunicationService {
             headers: headers
         })
             .then(result => {
-                console.log("Hey hey:", result);
                 return putDataHandler(result);
             })
             .catch((error) => {

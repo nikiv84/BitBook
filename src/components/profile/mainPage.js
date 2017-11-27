@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Header from "../common/header";
 import ProfilePage from "./profilePage";
 import Feed from "./feed";
@@ -17,11 +17,11 @@ class Main extends React.Component {
             <div className="main-bg">
                 <Header />
                 <Switch>
+                    <Redirect exact from="/" to="/feed"/>
                     <Route path="/feed" component={Feed} />
                     <Route path="/people" component={People} />
                     <Route exact path="/profile" component={ProfilePage} />
                     <Route path="/profile/:id" component={UserPage} />
-                    <Route exact path="/" component={ProfilePage} />
                 </Switch>
             </div>
         );

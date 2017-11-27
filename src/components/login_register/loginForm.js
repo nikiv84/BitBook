@@ -82,9 +82,12 @@ class LoginForm extends React.Component {
                 <div className="col s12">
                     <form>
                         <label htmlFor="username">Username:</label>
+
                         <input id="username" type="text" onChange={this.handleUsernameChange} placeholder="Enter Username..." />
+
                         <label htmlFor="password">Password:</label>
-                        <input id="password" type="password" onChange={this.handlePasswordChange} placeholder="Enter Password..." />
+                        
+                        <input id="password" type="password" value={this.state.password} onChange={this.handlePasswordChange} placeholder="Enter Password..." />
 
                         {this.state.loading ? <div className="progress"><div className="indeterminate"></div></div> : ""}
 

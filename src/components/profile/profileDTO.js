@@ -15,18 +15,43 @@ export default class ProfileDTO {
     get name(){
         return this._name;
     }
+
+    set name(newName){
+        this._name = newName;
+    }
+
     get email(){
         return this._email;
     }
+
+    set email(newEmail){
+        this._email = newEmail;
+    }
+
     get aboutShort(){
         return this._aboutShort;
     }
+
+    set aboutShort(newAboutShort){
+        this._aboutShort = newAboutShort;
+    }
+
     get about(){
         return this._about;
     }
+
+    set about(newAbout){
+        this._about = newAbout;
+    }
+
     get avatarUrl(){
         return this._avatarUrl;
     }
+
+    set avatarUrl(newAvatarUrl){
+        this._avatarUrl = newAvatarUrl;
+    }
+
     get postsCount(){
         return this._postsCount;
     }
@@ -38,21 +63,11 @@ export default class ProfileDTO {
     }
 
 
-    set name(newName){
-        this._name = newName;
-    }
-    set email(newEmail){
-        this._email = newEmail;
-    }
-    set aboutShort(newAboutShort){
-        this._aboutShort = newAboutShort;
-    }
-    set about(newAbout){
-        this._about = newAbout;
-    }
-    set avatarUrl(newAvatarUrl){
-        this._avatarUrl = newAvatarUrl;
-    }
+   
+    
+    
+    
+    
  
 
 }

@@ -111,10 +111,12 @@ export default class EditProfile extends React.Component {
         }
     }
 
-    handleChange(event, name) {
+    handleChange(event) {
         const value = event.target.value;
+        const fieldName = event.target.name;
+
         this.setState({
-            [name]: value
+            [fieldName]: value
         });
     }
 
@@ -135,13 +137,29 @@ export default class EditProfile extends React.Component {
                 >
                     <div>
                         <h5>Edit profile</h5>
-                        <input type="text" name={this.state.name} placeholder="Edit name" onChange={(e) => this.handleChange(e, "name")} defaultValue={this.state.name} />
-                        <input type="email" name={this.state.email} placeholder="Edit email" onChange={(e) => this.handleChange(e, "email")} defaultValue={this.state.email} />
-                        <textarea name={this.state.about} placeholder="Edit about" style={{ "height": "120px" }} onChange={(e) => this.handleChange(e, "about")} defaultValue={this.state.about} />
-                        <textarea name={this.state.aboutShort} placeholder="Edit short about" style={{ "height": "60px" }} onChange={(e) => this.handleChange(e, "aboutShort")} defaultValue={this.state.aboutShort} />
-                        <input name={this.state.avatar} type="text" placeholder="New profile image URL" onChange={(e) => this.handleChange(e, "avatar")} defaultValue={this.state.avatar} />
+                        <input 
+                            type="text"
+                            name="name"
+                            value={this.state.name} 
+                            placeholder="Edit name" 
+                            onChange={this.handleChange}  />
+                        
+                        <input type="email" name="email" value={this.state.email} placeholder="Edit email" onChange={this.handleChange} />
+                        {/* <span>{this.getErrorMesage("email")} </span> */}
+                        
+                        <textarea name="about" value={this.state.about} placeholder="Edit about" style={{ "height": "120px" }} onChange={this.handleChange} />
+                        {/* <span>{this.getErrorMesage("about")} </span> */}
+
+                        <textarea name="aboutShort" value={this.state.aboutShort} placeholder="Edit short about" style={{ "height": "60px" }} onChange={this.handleChange} />
+                        {/* <span>{this.getErrorMesage("aboutShort")} </span> */}
+
+                        <input name="avatarUrl" value={this.state.avatar} type="text" placeholder="New profile image URL" onChange={this.handleChange} />
+                        {/* <span>{this.getErrorMesage("avatarUrl")} </span> */}
+
                         <button onClick={this.saveChanges} className="waves-effect waves-light btn">Save Changes</button>
+                        
                         <button onClick={this.closeModal} className="waves-effect waves-light btn closebtn">Close</button>
+                        
                         <p id="error">{this.state.isNotValid ? `${this.state.errorMsg}` : ""}</p>
                     </div>
                 </Modal>

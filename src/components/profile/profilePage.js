@@ -27,7 +27,6 @@ class ProfilePage extends React.Component {
             this.setState({
                 profile: profileData
             });
-            console.log(profileData.userId);
         });
     }
 

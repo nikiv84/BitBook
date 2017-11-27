@@ -87,8 +87,6 @@ class RegisterForm extends React.Component {
                 });
             });
         }
-
-       
     }
 
     render() {
@@ -103,17 +101,26 @@ class RegisterForm extends React.Component {
                 <div className="col s12">
                     <form>
                         <label htmlFor="name">Name:</label>
-                        <input id="name" type="text" onChange={this.handleNameChange} placeholder="Enter first name and last name..." />
-                        <label htmlFor="username">Username:</label>
-                        <input id="username" type="text" onChange={this.handleUsernameChange} placeholder="Enter username..." />
-                        <label htmlFor="email">Email:</label>
-                        <input id="email" type="email" onChange={this.handleEmailChange} placeholder="Enter Email..." />
-                        <label htmlFor="password">Password:</label>
-                        <input id="password" type="password" onChange={this.handlePasswordChange} placeholder="Enter Password..." />
-                        <label htmlFor="repeat-password">Confirm Password:</label>
-                        <input id="repeat-password" type="password" onChange={this.handleRepeatPasswordChange} placeholder="Re-enter Password..." />
-                        <button className="waves-effect waves-light btn registration" onClick={this.registerHandler}>Register</button>
 
+                        <input id="name" type="text" onChange={this.handleNameChange} placeholder="Enter first name and last name..." />
+
+                        <label htmlFor="username">Username:</label>
+
+                        <input id="username" type="text" onChange={this.handleUsernameChange} placeholder="Enter username..." />
+
+                        <label htmlFor="email">Email:</label>
+
+                        <input id="email" type="email" onChange={this.handleEmailChange} placeholder="Enter Email..." />
+
+                        <label htmlFor="password">Password:</label>
+
+                        <input id="password" type="password" onChange={this.handlePasswordChange} placeholder="Enter Password..." />
+
+                        <label htmlFor="repeat-password">Confirm Password:</label>
+
+                        <input id="repeat-password" type="password" onChange={this.handleRepeatPasswordChange} placeholder="Re-enter Password..." />
+                        
+                        <button className="waves-effect waves-light btn registration" onClick={this.registerHandler}>Register</button>
                     </form>
                     <p id="error">{this.state.isNotValid ? `${this.state.errorMsg}` : ""}</p>
                 </div>

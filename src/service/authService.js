@@ -16,8 +16,7 @@ class AuthService {
         this.commService.postRequest("login", data, (response) => {
             if (response.status === 200) {
                 sessionStorage.setItem(SESSION_ID_KEY, response.data.sessionId);
-                this.redirectService.redirectTo("/profile");
-                console.log(response);
+                this.redirectService.redirectTo("/feed");
             }
         }, (error) => {
             callback(error.response.data.error.message);
