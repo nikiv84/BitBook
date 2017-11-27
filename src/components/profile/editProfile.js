@@ -3,6 +3,7 @@ import { AVATAR_PLACEHOLDER } from "../../constants";
 import PropTypes from "prop-types";
 import Modal from "react-modal";
 import DataService from "../../service/dataService";
+import RedirectService from "../../service/redirectService";
 import CommunicationService from "../../service/communicationService";
 import ValidationService from "../../service/validationService";
 
@@ -26,6 +27,7 @@ export default class EditProfile extends React.Component {
         this.dataService = new DataService();
         this.commService = new CommunicationService();
         this.validService = new ValidationService();
+        this.redirectService = new RedirectService();
         this.state = {
             modalIsOpen: false,
             name: "",
@@ -34,7 +36,8 @@ export default class EditProfile extends React.Component {
             aboutShort: "",
             avatar: "",
             isNotValid: false,
-            errorMsg: []
+            errorMsg: [],
+            isUpdated: false
         };
     }
 
@@ -94,12 +97,16 @@ export default class EditProfile extends React.Component {
                 isNotValid: false,
             });
 
-            this.dataService.updateProfile(data, (error) => {
+            this.dataService.updateProfile(data, (response) => {
+                this.closeModal();
+                this.setState({
+                    isUpdated: true
+                });
+            }, (error) => {
                 this.setState({
                     isNotValid: true,
                     errorMsg: error
                 });
-
             });
         }
     }
@@ -109,12 +116,9 @@ export default class EditProfile extends React.Component {
         this.setState({
             [name]: value
         });
-        console.log(value);
-
     }
 
     closeModal() {
-        // this.setState({ modalIsOpen: false });
         this.props.clickedOnClose();
     }
 

@@ -31,10 +31,11 @@ class Search extends React.Component {
 
     render() {
         return (
-            <div>
-                <h4><i className="small material-icons">search</i> Search</h4>
-                <input type="text" placeholder="Search profile..." value={this.state.searchString} onChange={this.onInputChanged} />
-                {this.props.instant ? "" : <input className="btn waves-effect waves-light col s2" type="button" value="Search" onClick={this.onSearchClicked} />}
+            <div className="row">
+                <div className="col s12">
+                    <input className="search-bar" type="text" placeholder="Search profile..." value={this.state.searchString} onChange={this.onInputChanged} />
+                    {this.props.instant ? "" : <input className="btn waves-effect waves-light col s2" type="button" value="Search" onClick={this.onSearchClicked} />}
+                </div>
             </div>
         );
     }

@@ -1,4 +1,5 @@
 import React from "react";
+import DataService from "../../service/dataService";
 import CommunicationService from "../../service/communicationService";
 import User from "./user";
 import Search from "../common/search";
@@ -9,10 +10,12 @@ export default class People extends React.Component {
         super(props);
         this.state = {
             users: [],
-            filteredUsers: []
+            filteredUsers: [],
+            me: []
         };
 
         this.commService = new CommunicationService();
+        this.dataService = new DataService();
         this.searchHandler = this.searchHandler.bind(this);
     }
 
@@ -43,14 +46,24 @@ export default class People extends React.Component {
         this.setState({ filteredUsers: filteredList });
     }
 
+    getMyProfileId() {
+        this.dataService.getProfile((profileData) => {
+            this.setState({
+                me: profileData.userId
+            });
+            console.log(profileData.userId);
+        });
+    }
+
 
     componentDidMount() {
         this.getUsers();
+        this.getMyProfileId();
     }
 
 
     render() {
-       
+
         const users = this.state.filteredUsers;
         if (!users) {
             return (
@@ -61,9 +74,11 @@ export default class People extends React.Component {
         }
         return (
             <div className="container">
+                <Search onSearchRequested={this.searchHandler} instant={true} />
                 <div className="row">
-                    <Search onSearchRequested={this.searchHandler} instant={true} />
-                    {users.map((user) => {
+                    {users.filter(user => {
+                        return user.id !== this.state.me;
+                    }).map((user) => {
                         return <User user={user} key={user.id} />;
                     })}
                 </div>

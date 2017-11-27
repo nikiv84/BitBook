@@ -1,12 +1,10 @@
 import React from "react";
-import AuthService from "../../service/authService";
 import DataService from "../../service/dataService";
 import Profile from "./profile";
 
 class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
-        this.authService = new AuthService();
         this.dataService = new DataService();
 
         this.state = {
@@ -17,6 +15,7 @@ class ProfilePage extends React.Component {
     }
     initBind() {
         this.getMyProfile = this.getMyProfile.bind(this);
+        this.isUpdated = this.isUpdated.bind(this);
     }
 
     componentDidMount() {
@@ -28,7 +27,12 @@ class ProfilePage extends React.Component {
             this.setState({
                 profile: profileData
             });
+            console.log(profileData.userId);
         });
+    }
+
+    isUpdated(){
+        this.getMyProfile();
     }
 
 
@@ -39,7 +43,7 @@ class ProfilePage extends React.Component {
         }
         return (
             <div>
-                <Profile profile={this.state.profile} me={true}/>
+                <Profile profile={this.state.profile} me={true} isUpdated={this.isUpdated}/>
             </div>
         );
     }

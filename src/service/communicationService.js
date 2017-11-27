@@ -61,6 +61,7 @@ class CommunicationService {
             headers: headers
         })
             .then(result => {
+                console.log("Hey hey:", result);
                 return putDataHandler(result);
             })
             .catch((error) => {

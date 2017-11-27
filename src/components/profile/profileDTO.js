@@ -1,7 +1,7 @@
 export default class ProfileDTO {
 
-    constructor(name, email, aboutShort, about, avatarUrl, postsCount, commentsCount){
-     
+    constructor(userId, name, email, aboutShort, about, avatarUrl, postsCount, commentsCount){
+        this._userId = userId;
         this._name = name;
         this._aboutShort = aboutShort;
         this._about = about;
@@ -32,6 +32,9 @@ export default class ProfileDTO {
     }
     get commentsCount(){
         return this._commentsCount;
+    }
+    get userId(){
+        return this._userId;
     }
 
 

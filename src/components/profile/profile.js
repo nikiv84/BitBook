@@ -33,8 +33,9 @@ export default class Profile extends React.Component {
 
     clickedOnClose() {
         this.setState({
-            clickedOnEdit: false
+            clickedOnEdit: false,
         });
+        this.props.isUpdated();
     }
 
     handleEdit() {
@@ -61,7 +62,7 @@ export default class Profile extends React.Component {
                                 <img src={`${avatarSrc}`} />
                             </div>
                             <div className="card-content">
-                                {this.props.me ? <p onClick={this.handleEdit} className="btn-floating halfway-fab waves-effect waves-light red editprofile" title="Edit profile"><i className="material-icons">create</i></p> : ""}
+                                {this.props.me ? <p onClick={this.handleEdit} className="btn-floating halfway-fab waves-effect waves-light indigo darken-4 editprofile" title="Edit profile"><i className="material-icons">create</i></p> : ""}
                                 <h4>{this.props.profile.name}</h4>
                                 <p>{this.props.profile.about}</p>
                                 <p>{this.props.profile.postsCount} posts</p>

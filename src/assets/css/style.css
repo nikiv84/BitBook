@@ -1,38 +1,132 @@
-html {
-    height: 100%;
-}
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,600,800');
+
 body {
-    background: url(../img/bg.jpg) no-repeat;
+    font-family: 'Poppins', sans-serif;
+    background-image: url(../img/bg2.png);
+    background-repeat: no-repeat;
     background-size: cover;
-    background-position-y: 100%;
-    box-sizing: border-box;
-    margin:0;
-    padding: 0;
+    background-position: center center;
+    background-color: #F0F3F6;
     background-attachment: fixed;
 }
 
-.bitform {
-    border: 1px solid #5c7d72;
-    /* height: 300px; */
-    padding: 2rem !important;
-    margin-top: 2rem;
-    border-radius: 15px;
+html {
+    min-height: 100%;
 }
+
+.vh-center {
+    margin-top: 5%;
+}
+
+.panel-bg {
+    color: #fff;
+    margin: 3rem auto;
+    display: block;
+    background-color: #15334d;
+    padding: 3rem;
+    box-shadow: 0 0 75px rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    background-image: url(../img/addressbar_small.png);
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    padding-top: 6rem;
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.panel-bg::before {
+    content: url(../img/lines.png);
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-size: 100%;
+    z-index: -10;
+}
+
+@media screen and (min-width: 768px) {
+    .panel-bg {
+        background-image: url(../img/addressbar.png);
+    }
+}
+
+h1 {
+    font-size: 2.3rem;
+    width: 60%;
+    display: inline-block;
+    margin: 1rem;
+    line-height: 1;
+    vertical-align: top;
+}
+
+h1 span {
+    font-weight: 800;
+    font-size: 3.5rem;
+}
+
+nav.transnav {
+    background-color: transparent;
+    box-shadow: none;
+    color: #171612;
+}
+
+nav.transnav ul a, nav.transnav .brand-logo {
+    color: #171612;
+}
+
+nav.transnav ul li a {
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    font-size: 0.9rem;
+    border-radius: 0 0 10px 10px;
+}
+
+nav.transnav ul li a:hover {
+    border-radius: 0 0 10px 10px;
+}
+
+nav.transnav .brand-logo span {
+    font-weight: 800;
+}
+
+nav.transnav .brand-logo span {
+    font-weight: 600;
+}
+
+.logo {
+    margin-top: 0.5rem;
+    height: 110px;
+}
+
+.bitform {
+    padding: 2rem !important;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
 li {
     margin-right: 20px;
     font-size: 20px;
 }
-.brand-logo {
-    margin-left: 25px;  
-}
-#error{
+
+#error {
     color: red;
+}
+.bitform .tabs {
+    border-radius: 5px 5px 0 0;
 }
 
 .tabs li.tab a.active {
-    background-color: #ee6e73;
+    background-color: #15334d;
     color: #fff;
-    border-radius: 5px 5px 0 0;
+}
+
+.bitform .tabs .tab a {
+    color: #527FB5;
 }
 
 form {
@@ -41,8 +135,12 @@ form {
 
 button.registration {
     margin-top: 1rem;
+    background-color: #F1CD61;
 }
 
+button.registration:hover, button.registration:focus {
+    background-color: #E5BA51;
+}
 
 .center-content {
     text-align: center;
@@ -50,11 +148,14 @@ button.registration {
 }
 
 #logout {
-    padding: 5px 10px;
+    background-color: #15334d;
+    padding: 10px 30px;
     line-height: 1;
     font-size: 0.8rem;
     margin-left: 3rem;
+    font-weight: 600;
 }
+
 .profile {
     margin-top: 5rem;
 }
@@ -68,7 +169,7 @@ button.registration {
     right: 3%;
 }
 
-.ReactModal__Overlay.ReactModal__Overlay--after-open{
+.ReactModal__Overlay.ReactModal__Overlay--after-open {
     z-index: 1000;
 }
 
@@ -76,19 +177,27 @@ button.registration {
     float: right;
 }
 
-/* .card {
-    height: 600px;
-} */
-
 .eqWrap {
-	display: flex;
+    display: flex;
 }
 
 .equalHW {
-	flex: 1;
+    flex: 1;
 }
 
 .equalHMRWrap {
-	justify-content: space-between;
-	flex-wrap: wrap;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+input[type=text].search-bar {
+    background-image: url(../img/magnifier.svg);
+    background-repeat: no-repeat;
+    background-position: 0% 50%;
+    background-size: 1rem;
+    padding-left: 1.5rem;
+}
+
+.yellow-bg {
+    background-color: #EEC133;
 }

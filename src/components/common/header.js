@@ -14,10 +14,10 @@ class Header extends React.Component {
     }
     render() {
         return (
-            <nav className="nav-extended">
+            <nav className="nav-extended transnav">
                 <div className="nav-wrapper">
                     <div className="container">
-                        <a href="#" className="brand-logo">BitBook</a>
+                        <Link to={"/feed"} className="brand-logo"><img src="../../assets/img/logo-dark.svg" alt="BitBook logo" />it<span>Book</span></Link>
                         <a href="#" data-target="mobile-demo" className="sidenav-trigger button-collapse"><i className="material-icons">menu</i></a>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
                             <li><Link to={"/feed"}>Feed</Link></li>
