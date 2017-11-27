@@ -1,7 +1,7 @@
 class RedirectService {
 
     redirectTo(location) {
-        window.location.replace(`#${location}`);
+        window.location.assign(`#${location}`);
     }
 }
 

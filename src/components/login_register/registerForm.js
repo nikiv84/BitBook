@@ -93,7 +93,7 @@ class RegisterForm extends React.Component {
 
     render() {
         return (
-            <div className="bitform col s6">
+            <div className="bitform col m12 l6">
                 <div className="col s12">
                     <ul className="tabs">
                         <li className="tab col s6"><Link to={"/login"}>Login</Link></li>

@@ -57,11 +57,11 @@ class CommunicationService {
         axios({
             method: "PUT",
             url: requestUrl,
-            data: JSON.stringify(data),
-            headers: headers,
-            json: true
+            data: data,
+            headers: headers
         })
             .then(result => {
+                console.log("Hey hey:", result);
                 return putDataHandler(result);
             })
             .catch((error) => {

@@ -11,7 +11,8 @@ class LoginForm extends React.Component {
             username: "",
             password: "",
             isNotValid: false,
-            errorMsg: ""
+            errorMsg: "",
+            loading: false
         };
         this.initBind();
         this.authService = new AuthService();
@@ -38,10 +39,10 @@ class LoginForm extends React.Component {
 
     login(sessID) {
         const sessionId = sessionStorage.setItem(SESSION_ID_KEY, JSON.stringify(sessID));
-        console.log("Successfully logged in!");
     }
 
     loginHandler() {
+
         const data = {
             username: this.state.username,
             password: this.state.password
@@ -49,18 +50,20 @@ class LoginForm extends React.Component {
 
         if (this.validService.isLoginFormValid(data)) {
             this.setState({
-                isNotValid: false
+                isNotValid: false,
+                loading: true
             });
             this.authService.login(data, (error) => {
                 this.setState({
                     isNotValid: true,
-                    errorMsg: error
+                    errorMsg: error,
+                    loading: false
                 });
             });
         } else {
             this.setState({
                 isNotValid: true,
-                errorMsg: "All fields must be filled out!"             
+                errorMsg: "All fields must be filled out!"
             });
         }
 
@@ -68,7 +71,7 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <div className="bitform col s6">
+            <div className="bitform col m12 l6">
                 <div className="col s12">
                     <ul className="tabs">
                         <li className="tab col s6"><Link to={"/login"} className="active">Login</Link></li>
@@ -82,8 +85,12 @@ class LoginForm extends React.Component {
                         <input id="username" type="text" onChange={this.handleUsernameChange} placeholder="Enter Username..." />
                         <label htmlFor="password">Password:</label>
                         <input id="password" type="password" onChange={this.handlePasswordChange} placeholder="Enter Password..." />
+
+                        {this.state.loading ? <div className="progress"><div className="indeterminate"></div></div> : ""}
+
                         <button className="waves-effect waves-light btn registration" onClick={this.loginHandler}>Login</button>
                     </form>
+
                     <p id="error">{this.state.isNotValid ? `${this.state.errorMsg}` : ""}</p>
                 </div>
             </div>

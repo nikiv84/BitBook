@@ -15,9 +15,9 @@ class AuthService {
     login(data, callback) {
         this.commService.postRequest("login", data, (response) => {
             if (response.status === 200) {
-                console.log("TODO BIEN!");
                 sessionStorage.setItem(SESSION_ID_KEY, response.data.sessionId);
-                this.redirectService.redirectTo("/");
+                this.redirectService.redirectTo("/profile");
+                console.log(response);
             }
         }, (error) => {
             callback(error.response.data.error.message);
@@ -36,7 +36,7 @@ class AuthService {
 
     logOut() {
         sessionStorage.removeItem(SESSION_ID_KEY);
-        this.redirectService.redirectTo("/login");
+        this.redirectService.redirectTo("/");
     }
 
 }

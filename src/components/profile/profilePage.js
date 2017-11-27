@@ -1,13 +1,10 @@
 import React from "react";
-import Header from "./header";
-import AuthService from "../../service/authService";
 import DataService from "../../service/dataService";
-import Profile from "../profile/profile";
+import Profile from "./profile";
 
-class Main extends React.Component {
+class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
-        this.authService = new AuthService();
         this.dataService = new DataService();
 
         this.state = {
@@ -18,6 +15,7 @@ class Main extends React.Component {
     }
     initBind() {
         this.getMyProfile = this.getMyProfile.bind(this);
+        this.isUpdated = this.isUpdated.bind(this);
     }
 
     componentDidMount() {
@@ -29,9 +27,13 @@ class Main extends React.Component {
             this.setState({
                 profile: profileData
             });
+            console.log(profileData.userId);
         });
     }
-    
+
+    isUpdated(){
+        this.getMyProfile();
+    }
 
 
 
@@ -41,13 +43,10 @@ class Main extends React.Component {
         }
         return (
             <div>
-
-                <Header />
-                <Profile profile={this.state.profile} />
-
+                <Profile profile={this.state.profile} me={true} isUpdated={this.isUpdated}/>
             </div>
         );
     }
 };
 
-export default Main;
+export default ProfilePage;
