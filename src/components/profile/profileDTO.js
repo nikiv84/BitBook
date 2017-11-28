@@ -55,9 +55,11 @@ export default class ProfileDTO {
     get postsCount(){
         return this._postsCount;
     }
+
     get commentsCount(){
         return this._commentsCount;
     }
+    
     get userId(){
         return this._userId;
     }

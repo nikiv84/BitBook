@@ -22,6 +22,7 @@ class LoginForm extends React.Component {
     initBind() {
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.callbackFunc = this.callbackFunc.bind(this);
         this.loginHandler = this.loginHandler.bind(this);
     }
 
@@ -41,6 +42,14 @@ class LoginForm extends React.Component {
         const sessionId = sessionStorage.setItem(SESSION_ID_KEY, JSON.stringify(sessID));
     }
 
+    callbackFunc(errors) {
+        this.setState({
+            isNotValid: true,
+            errorMsg: errors,
+            loading: false
+        });
+    }
+
     loginHandler() {
 
         const data = {
@@ -48,24 +57,43 @@ class LoginForm extends React.Component {
             password: this.state.password
         };
 
-        if (this.validService.isLoginFormValid(data)) {
-            this.setState({
-                isNotValid: false,
-                loading: true
-            });
-            this.authService.login(data, (error) => {
+
+        if (this.validService.isLoginFormValid(data, this.callbackFunc)) {
+            this.authService.login(data, (errors) => {
                 this.setState({
                     isNotValid: true,
-                    errorMsg: error,
+                    errorMsg: errors,
                     loading: false
                 });
             });
         } else {
-            this.setState({
-                isNotValid: true,
-                errorMsg: "All fields must be filled out!"
-            });
+            console.log("Else");
         }
+
+        // if (this.validService.isLoginFormValid(data, (errors) => {
+        //     this.setState({
+        //         isNotValid: true,
+        //         errorMsg: errors,
+        //         loading: false
+        //     });
+        // })) {
+        //     this.setState({
+        //         isNotValid: false,
+        //         loading: true
+        //     });
+        //     this.authService.login(data, (errors) => {
+        //         this.setState({
+        //             isNotValid: true,
+        //             errorMsg: errors,
+        //             loading: false
+        //         });
+        //     });
+        // } else {
+        //     this.setState({
+        //         isNotValid: true,
+        //         errorMsg: "General message"
+        //     });
+        // }
 
     }
 
@@ -86,7 +114,7 @@ class LoginForm extends React.Component {
                         <input id="username" type="text" onChange={this.handleUsernameChange} placeholder="Enter Username..." />
 
                         <label htmlFor="password">Password:</label>
-                        
+
                         <input id="password" type="password" value={this.state.password} onChange={this.handlePasswordChange} placeholder="Enter Password..." />
 
                         {this.state.loading ? <div className="progress"><div className="indeterminate"></div></div> : ""}
@@ -94,7 +122,7 @@ class LoginForm extends React.Component {
                         <button className="waves-effect waves-light btn registration" onClick={this.loginHandler}>Login</button>
                     </form>
 
-                    <p id="error">{this.state.isNotValid ? `${this.state.errorMsg}` : ""}</p>
+                    <p id="error">{this.state.errorMsg.allFields ? `${this.state.errorMsg.allFields}` : `${this.state.errorMsg}`}</p>
                 </div>
             </div>
         );
