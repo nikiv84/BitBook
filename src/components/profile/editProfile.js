@@ -85,7 +85,6 @@ export default class EditProfile extends React.Component {
             avatarUrl: this.state.avatar
         };
 
-
         if (this.validService.isEditFormValid(data, (errorMsgs) => {
             let newarr = errorMsgs;
             this.setState({

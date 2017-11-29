@@ -91,4 +91,12 @@ export default class DataService {
             });
     }
 
+    deletePost(id, responseHandler) {
+        this.commService.deleteRequest(`Posts/${id}`, (response) => {
+            responseHandler(response);
+        }, (error) => {
+            console.log(error);
+        });
+    }
+
 }

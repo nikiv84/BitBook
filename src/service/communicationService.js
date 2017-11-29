@@ -8,7 +8,7 @@ class CommunicationService {
             "Accept": "application/json",
             "Key": API_KEY
         };
-        
+
         const sessionId = sessionStorage.getItem(SESSION_ID_KEY);
 
         if (sessionId) {
@@ -68,6 +68,19 @@ class CommunicationService {
                 putErrorHandler(error);
             });
     }
+
+    deleteRequest(url, deleteHandler, errorHandler) {
+
+        const requestUrl = `${BASE_URL}/${url}`;
+
+        axios.delete(requestUrl, {
+            headers: this.createHeaders()
+        })
+            .then(response => deleteHandler(response))
+            .catch(error => errorHandler(error));
+
+    }
+
 
 }
 

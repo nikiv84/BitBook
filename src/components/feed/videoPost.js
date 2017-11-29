@@ -2,12 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Iframe from "react-iframe";
+import RedirectService from "../../service/redirectService";
+import DataService from "../../service/dataService";
 
 const VideoPost = (props) => {
-
     const redirectService = new RedirectService();
+    const dataService = new DataService();
     const { videoUrl, id, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
-    const myId = props.ownId;
+    const myId = props.myId;
 
     const date = new Date(dateCreated);
     const time = date.toLocaleTimeString();
@@ -22,23 +24,29 @@ const VideoPost = (props) => {
 
     const onDeletion = () => {
         dataService.deletePost(id,
-            (serverResponseData) => {
-                redirectService.goTo("/");
+            (response) => {
+                redirectService.redirectTo("/");
             });
     };
+    const singlePostUrl = `/feed/${type.slice(0, 1).toUpperCase()}${type.slice(1)}/${id}`;
 
     return (
-        <div className="card">
-            <button onClick={onDeletion} style={{ display: showDeleteButton }}>Delete Post</button>
+        <div className="card dark-blue darken-1 post">
+
             <div className="card-image">
                 <Iframe url={`https://www.youtube.com/embed/${youtubeVideoId}`}
                     width="100%"
-                    height="500px"
+                    height="480"
                     display="initial"
                     position="relative"
                     allowFullScreen />
             </div>
-
+            <div className="card-content white-text">
+                <Link to={singlePostUrl} key={id}>
+                    <button className="waves-effect waves-light btn"><i className="material-icons left">chat</i>Read More</button>
+                </Link>
+                <button className="waves-effect waves-light btn fl-right" onClick={onDeletion} style={{ display: showDeleteButton }}><i className="material-icons left">delete</i>Delete Post</button>
+            </div>
             <div className="card-action">
                 <span>{type} post</span>
                 <span>{commentsNum} comments</span>

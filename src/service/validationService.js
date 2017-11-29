@@ -96,6 +96,40 @@ class ValidationService {
         successCallback(data);
     }
 
+    isImagePostValid(data, successCallback, failureCallback) {
+        let errors = {};
+        if (!this.hasAllRequiredFields(data)) {
+            errors.allFields = "Post must contain text!";
+            failureCallback(errors);
+            return false;
+        }
+
+        if (!this.isLinkValid(data)) {
+            errors.link = "Link is not valid!";
+            failureCallback(errors);
+            return false;
+        }
+        successCallback(data);
+    }
+
+    isVideoPostValid(data, successCallback, failureCallback) {
+        let errors = {};
+
+        if (!this.hasAllRequiredFields(data)) {
+            errors.allFields = "Post must contain text!!!!";
+            failureCallback(errors);
+            return false;
+        }
+
+        if (!this.isYouTubeLinkValid(data)) {
+            errors.link = "You Tube link is not valid!";
+            failureCallback(errors);
+            return false;
+        }
+        successCallback(data);
+
+    }
+
     hasAllRequiredFields(data) {
         for (let key in data) {
             if (data[key] === "") {
@@ -146,12 +180,21 @@ class ValidationService {
         }
         return true;
     }
-    
+
     isLinkValid(data) {
         if (data.avatarUrl == "") {
             const re = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
             const isOK = re.test(data.avatarUrl);
             return isOK;
+        }
+        return true;
+    }
+
+    isYouTubeLinkValid(data) {
+        if(data.videoUrl == "") {
+            const re = /^http:\/\/(?:www\.)?youtube.com\/watch\?v=\w+(&\S*)?$/;
+            const isOk = re.test(data.videoUrl);
+            return isOk;
         }
         return true;
     }

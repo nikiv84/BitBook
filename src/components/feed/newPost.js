@@ -45,10 +45,13 @@ export default class NewPost extends React.Component {
     }
 
     bindEventHandlers() {
-
         this.activateTextModal = this.activateTextModal.bind(this);
+        this.activateImageModal = this.activateImageModal.bind(this);
+        this.activateVideoModal = this.activateVideoModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.saveTextPost = this.saveTextPost.bind(this);
+        this.saveImagePost = this.saveImagePost.bind(this);
+        this.saveVideoPost = this.saveVideoPost.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.hideShowButtons = this.hideShowButtons.bind(this);
     }
@@ -56,6 +59,7 @@ export default class NewPost extends React.Component {
     handleChange(event) {
         const value = event.target.value;
         const name = event.target.name;
+        console.log(value);
 
         this.setState({
             [name]: value
@@ -68,6 +72,17 @@ export default class NewPost extends React.Component {
         });
     }
 
+    activateImageModal() {
+        this.setState({
+            imageModalOpen: true
+        });
+    }
+
+    activateVideoModal() {
+        this.setState({
+            videoModalOpen: true
+        });
+    }
     closeModal() {
         this.setState({
             textModalOpen: false,
@@ -119,6 +134,64 @@ export default class NewPost extends React.Component {
             });
     }
 
+    saveImagePost() {
+
+        event.preventDefault();
+
+        let imageUrl = {
+            imageUrl: this.state.imageUrl
+        };
+
+        this.validationService.isImagePostValid(imageUrl,
+            (imageUrl) => {
+                this.dataService.newPost("Image", imageUrl,
+                    (response) => {
+                        this.closeModal();
+                        this.setState({
+                            text: "",
+                            imageUrl: "",
+                            videoUrl: ""
+                        });
+                        this.props.reloadFeed();
+                    });
+            },
+            (errors) => {
+                this.setState({
+                    errors: errors
+                });
+            });
+    }
+    
+    
+    saveVideoPost() {
+
+        event.preventDefault();
+
+        let videoUrl = {
+            videoUrl: this.state.videoUrl
+        };
+
+        this.validationService.isVideoPostValid(videoUrl,
+            (videoUrl) => {
+                this.dataService.newPost("Video", videoUrl,
+                    (response) => {
+                        this.closeModal();
+                        this.setState({
+                            text: "",
+                            imageUrl: "",
+                            videoUrl: ""
+                        });
+                        this.props.reloadFeed();
+                    });
+            },
+            (errors) => {
+                this.setState({
+                    errors: errors
+                });
+            });
+    }
+
+
 
     render() {
         const TextModal =
@@ -147,6 +220,57 @@ export default class NewPost extends React.Component {
                 </div>
             </Modal>;
 
+        const ImgModal =
+
+            <Modal isOpen={this.state.imageModalOpen}
+                style={customStyles}
+            >
+
+                <div className="modal-content">
+
+                    <div className="modal-header">
+                        <h4 className="modal-title">New Image Post</h4>
+                    </div>
+
+                    <div className="modal-body">
+                        Image URL: <textarea cols="10" rows="2" className="col-12" type="text" name="imageUrl" onChange={this.handleChange} value={this.state.imageUrl} /><br />
+                        <div className="nameError text-danger">{this.state.errors.allFields}</div>
+                        <div className="fieldsError text-danger">{this.state.errors.link}</div>
+                    </div>
+
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
+                        <button type="button" className="btn btn-primary" onClick={this.saveImagePost}>Save post</button>
+                    </div>
+
+                </div>
+            </Modal>;
+
+        const VideoModal =
+
+            <Modal isOpen={this.state.videoModalOpen}
+                style={customStyles}
+            >
+
+                <div className="modal-content">
+
+                    <div className="modal-header">
+                        <h4 className="modal-title">New Video Post</h4>
+                    </div>
+
+                    <div className="modal-body">
+                        Video URL: <textarea cols="10" rows="2" className="col-12" type="text" name="videoUrl" onChange={this.handleChange} value={this.state.videoUrl} /><br />
+                        <div className="nameError text-danger">{this.state.errors.allFields}</div>
+                        <div className="fieldsError text-danger">{this.state.errors.link}</div>
+                    </div>
+
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
+                        <button type="button" className="btn btn-primary" onClick={this.saveVideoPost}>Save post</button>
+                    </div>
+
+                </div>
+            </Modal>;
         return (
 
             <div className="modalButtons">
@@ -155,8 +279,8 @@ export default class NewPost extends React.Component {
                     <span className="btn-floating btn-large red">
                         <i className="large material-icons">add</i>
                         <ul>
-                            <li><span className="btn-floating yellow darken-1"><i className="material-icons">ondemand_video</i></span></li>
-                            <li><span className="btn-floating green"><i className="material-icons">image</i></span></li>
+                            <li onClick={this.activateVideoModal}><span className="btn-floating yellow darken-1"><i className="material-icons">ondemand_video</i></span></li>
+                            <li onClick={this.activateImageModal}><span className="btn-floating green"><i className="material-icons">image</i></span></li>
                             <li onClick={this.activateTextModal}><span className="btn-floating blue"><i className="material-icons">text_fields</i></span></li>
                         </ul>
                     </span>
@@ -164,6 +288,8 @@ export default class NewPost extends React.Component {
                 </div>
 
                 {TextModal}
+                {ImgModal}
+                {VideoModal}
 
             </div >
         );

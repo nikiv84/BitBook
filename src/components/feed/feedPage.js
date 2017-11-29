@@ -3,9 +3,9 @@ import DataService from "../../service/dataService";
 import ImagePost from "./imagePost";
 import VideoPost from "./videoPost";
 import TextPost from "./textPost";
-// import Filter from "../common/postsFilter";
 import { Link } from "react-router-dom";
 import NewPost from "./newPost";
+import FeedFilter from "./feedFilter";
 
 
 export default class FeedPage extends React.Component {
@@ -13,7 +13,8 @@ export default class FeedPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: [],
+            allPosts: [],
+            filteredPosts: [],
             myId: ""
         };
         this.dataService = new DataService();
@@ -23,7 +24,7 @@ export default class FeedPage extends React.Component {
 
     bindEventHandlers() {
         this.loadData = this.loadData.bind(this);
-        // this.filtering = this.filtering.bind(this);
+        this.filtering = this.filtering.bind(this);
         // this.deletePost = this.deletePost.bind(this);
     }
 
@@ -31,7 +32,8 @@ export default class FeedPage extends React.Component {
         this.dataService.getPosts(
             (posts) => {
                 this.setState({
-                    posts: posts
+                    allPosts: posts,
+                    filteredPosts: posts
                 });
             });
 
@@ -47,66 +49,52 @@ export default class FeedPage extends React.Component {
         this.loadData();
     }
 
-    // filtering(searchString) {
-    //     const currentPosts = this.state.allPosts;
+    filtering(selectedFilter) {
+        const currentList = this.state.allPosts;
 
-    //     if (searchString === "") {
-    //         this.setState({
-    //             posts: currentPosts
-    //         });
-    //     }
+        if (selectedFilter === "") {
+            this.setState({ filteredPosts: currentList });
+            return;
+        }
 
-    //     const filteredPosts = currentPosts.filter(
-    //         (item) => {
-    //             return item.type.includes(searchString);
-    //         });
+        const filteredList = currentList.filter(
+            (item) => {
+                return item.type.includes(selectedFilter);
+            });
 
-    //     this.setState({
-    //         posts: filteredPosts
-    //     });
-    // }
+        this.setState({
+            filteredPosts: filteredList
+        });
+    }
 
-    // deletePost(id) {
-    //     dataService.deletePost(id,
-    //         (serverResponseData) => {
-    //             this.loadData();
-    //         });
-    // }
 
     render() {
-
-        const posts = this.state.posts;
+        const posts = this.state.filteredPosts;
 
         return (
-
-            <div className="container">
-                {/* <Filter filterPosts={this.filtering} /> */}
+            <div className="container newsfeed">
                 <div className="row">
                     <div className="col s12 m8 offset-m2">
+                        <FeedFilter filterPosts={this.filtering} />
+                        <h1 className="center">News feed</h1>
                         {posts.map(post => {
-                            const pathToSinglePost = `/feed/${post.type.slice(0, 1).toUpperCase()}${post.type.slice(1)}/${post.id}`;
                             if (post.type == "text") {
                                 return (
-                                    <Link to={pathToSinglePost} key={post.id}>
-                                        <TextPost myId={this.state.myId} post={post} />
-                                    </Link>
+                                    <TextPost myId={this.state.myId} post={post} key={post.id} />
                                 );
                             } else if (post.type == "image") {
                                 return (
-                                    <Link to={pathToSinglePost} key={post.id}>
-                                        <ImagePost myId={this.state.myId} post={post} key={post.id} />
-                                    </Link>
+                                    <ImagePost myId={this.state.myId} post={post} key={post.id} />
                                 );
                             } else if (post.type == "video") {
                                 return (
-                                    <Link to={pathToSinglePost} key={post.id}>
-                                        <VideoPost myId={this.state.myId} post={post} key={post.id} />
-                                    </Link>
+                                    <VideoPost myId={this.state.myId} post={post} key={post.id} />
                                 );
                             }
                         })}
                     </div>
                 </div>
+
                 <NewPost reloadFeed={this.loadData} />
             </div>
         );

@@ -51,7 +51,7 @@ html {
     }
 }
 
-h1 {
+.login h1 {
     font-size: 2.3rem;
     width: 60%;
     display: inline-block;
@@ -60,7 +60,7 @@ h1 {
     vertical-align: top;
 }
 
-h1 span {
+.login h1 span {
     font-weight: 800;
     font-size: 3.5rem;
 }
@@ -221,4 +221,36 @@ span.btn-floating {
 .modalButtons .fixed-action-btn ul li {
     margin-right: 0;
     margin-bottom: 0;
+}
+
+.post .btn, .post .btn-large, .post .btn-flat {
+    padding: 0 1rem;
+    text-transform: initial;
+    font-size: 0.8rem;
+    height: 2rem;
+    line-height: 2rem;
+}
+
+.post .btn i, .post .btn-large i, .post .btn-flat {
+    font-size: 1rem;
+}
+
+.fl-right {
+    float: right;
+}
+
+.dark-blue {
+    background-color: #15334d;
+}
+
+.post {
+    color: #fff;
+}
+
+.newsfeed h1 {
+    font-size: 3rem;
+}
+
+.post-type-select {
+    display: block;
 }

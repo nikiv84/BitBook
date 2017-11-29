@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 import CommunicationService from "../../service/communicationService";
 import DataService from "../../service/dataService";
 import RedirectService from "../../service/redirectService";
+import { Link } from "react-router-dom";
 
 const TextPost = (props) => {
     const redirectService = new RedirectService();
+    const dataService = new DataService();
     const { text, id, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
     const myId = props.myId;
 
@@ -25,16 +27,21 @@ const TextPost = (props) => {
                 redirectService.redirectTo("/");
             });
     };
+    const singlePostUrl = `/feed/${type.slice(0, 1).toUpperCase()}${type.slice(1)}/${id}`;
 
     return (
-        <div className="card blue-grey darken-1">
+        <div className="card dark-blue darken-1 post">
             <div className="card-action">
                 <span>{time}</span>
                 <span>{dateString}</span>
             </div>
-            <button onClick={onDeletion} style={{ display: showDeleteButton }}>Delete Post</button>
             <div className="card-content white-text">
                 <p>{text}</p>
+                <hr />
+                <Link to={singlePostUrl} key={id}>
+                    <button className="waves-effect waves-light btn"><i className="material-icons left">chat</i>Read More</button>
+                </Link>
+                <button className="waves-effect waves-light btn fl-right" onClick={onDeletion} style={{ display: showDeleteButton }}><i className="material-icons left">delete</i>Delete Post</button>
             </div>
 
             <div className="card-action">

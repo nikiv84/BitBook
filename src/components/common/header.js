@@ -1,6 +1,7 @@
 import React from "react";
 import AuthService from "../../service/authService";
 import { Link } from "react-router-dom";
+
 class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -8,9 +9,16 @@ class Header extends React.Component {
         this.authService = new AuthService();
     }
 
+    componentDidMount() {
+        // $(".sidenav").sidenav();
+        var elem = document.querySelector(".sidenav");
+        var instance = new M.Sidenav(elem);
+    }
+
     handleLogout() {
         this.authService.logOut();
     }
+
     render() {
         return (
             <nav className="nav-extended transnav">
