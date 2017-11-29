@@ -20,7 +20,7 @@ const customStyles = {
 };
 
 
-export default class EditProfile extends React.Component {
+export default class CreateFeed extends React.Component {
     constructor(props) {
         super(props);
         this.initBind();
@@ -30,11 +30,10 @@ export default class EditProfile extends React.Component {
         this.redirectService = new RedirectService();
         this.state = {
             modalIsOpen: false,
-            name: "",
-            email: "",
-            about: "",
-            aboutShort: "",
-            avatar: "",
+            text: "",
+            dateCreated: "",
+            userDisplayName: "",
+            PropTypes: "",
             isNotValid: false,
             errorMsg: [],
             isUpdated: false
@@ -45,7 +44,7 @@ export default class EditProfile extends React.Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.saveChanges = this.saveChanges.bind(this);
-        this.getProfileEditData = this.getProfileEditData.bind(this);
+        this.getFeedEditData = this.getFeedEditData.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -60,17 +59,17 @@ export default class EditProfile extends React.Component {
     }
 
     componentDidMount() {
-        this.getProfileEditData();
+        this.getFeedEditData();
     }
 
-    getProfileEditData() {
-        this.dataService.getProfile((profileData) => {
+    getFeedEditData() {
+        this.dataService.getPost((postData) => {
             this.setState({
-                name: profileData.name,
-                email: profileData.email,
-                about: profileData.about,
-                aboutShort: profileData.aboutShort,
-                avatar: profileData.avatarUrl
+                text: postData.text,
+                dateCreated: postData.dateCreated,
+                userDisplayName: postData.userDisplayName,
+                type: postData.type
+                
             });
         });
     }
@@ -78,15 +77,15 @@ export default class EditProfile extends React.Component {
     saveChanges() {
         event.preventDefault();
         let data = {
-            name: this.state.name,
-            email: this.state.email,
-            about: this.state.about,
-            aboutShort: this.state.aboutShort,
-            avatarUrl: this.state.avatar
+            text: this.state.text,
+            dateCreated: this.state.dateCreated,
+            userDisplayName: this.state.userDisplayName,
+            type: this.state.type
+       
         };
 
 
-        if (this.validService.isEditFormValid(data, (errorMsgs) => {
+        if (this.validService.isInputFieldValid(data, (errorMsgs) => {
             let newarr = errorMsgs;
             this.setState({
                 isNotValid: true,
@@ -97,7 +96,7 @@ export default class EditProfile extends React.Component {
                 isNotValid: false,
             });
 
-            this.dataService.updateProfile(data, (response) => {
+            this.dataService.updatePost(data, (response) => {
                 this.closeModal();
                 this.setState({
                     isUpdated: true
@@ -112,11 +111,11 @@ export default class EditProfile extends React.Component {
     }
 
     handleChange(event) {
-        const value = event.target.value;
-        const fieldName = event.target.name;
+        const inputText = event.target.value;
+        // const fieldName = event.target.name;
 
         this.setState({
-            [fieldName]: value
+            text: inputText
         });
     }
 
@@ -136,27 +135,16 @@ export default class EditProfile extends React.Component {
                     contentLabel="Example Modal"
                 >
                     <div>
-                        <h5>Edit profile</h5>
+                        <h5>Create Feed</h5>
                         <input 
                             type="text"
-                            name="name"
-                            value={this.state.name} 
-                            placeholder="Edit name" 
+                            name="inputText"
+                            value={this.state.text} 
+                            placeholder="Create Feed" 
                             onChange={this.handleChange}  />
                         
-                        <input type="email" name="email" value={this.state.email} placeholder="Edit email" onChange={this.handleChange} />
-                        {/* <span>{this.getErrorMessage("email")} </span> */}
-                        
-                        <textarea name="about" value={this.state.about} placeholder="Edit about" style={{ "height": "120px" }} onChange={this.handleChange} />
-                        {/* <span>{this.getErrorMesage("about")} </span> */}
 
-                        <textarea name="aboutShort" value={this.state.aboutShort} placeholder="Edit short about" style={{ "height": "60px" }} onChange={this.handleChange} />
-                        {/* <span>{this.getErrorMesage("aboutShort")} </span> */}
-
-                        <input name="avatarUrl" value={this.state.avatar} type="text" placeholder="New profile image URL" onChange={this.handleChange} />
-                        {/* <span>{this.getErrorMesage("avatarUrl")} </span> */}
-
-                        <button onClick={this.saveChanges} className="waves-effect waves-light btn">Save Changes</button>
+                        <button onClick={this.saveChanges} className="waves-effect waves-light btn">Post</button>
                         
                         <button onClick={this.closeModal} className="waves-effect waves-light btn closebtn">Close</button>
                         
@@ -168,7 +156,7 @@ export default class EditProfile extends React.Component {
     }
 };
 
-EditProfile.propTypes = {
+CreateFeed.propTypes = {
     profile: PropTypes.object,
     name: PropTypes.string,
     about: PropTypes.string,

@@ -14,7 +14,7 @@ class ValidationService {
     }
 
     isEditFormValid(data, callback) {
-
+        let errors = {};
         if (!this.hasAllRequiredFields(data)) {
             errors.allFields = "All fields must be filled out!";
             callback(errors);
@@ -36,6 +36,7 @@ class ValidationService {
             callback(errorMsgs);
             return false;
         }
+
         return true;
     }
 
@@ -78,23 +79,37 @@ class ValidationService {
             // return false;
         }
 
-        if (Object.keys(errors).length !== 0 ) {
+        if (Object.keys(errors).length !== 0) {
             return false;
         }
 
+
         return true;
 
     }
 
-    hasAllRequiredFields(data) {
-        for (let key in data) {
-            if (data[key] === "") {
-                return false;
-            }
+    isInputFieldValid(data, callback) {
+        let errors = {};
+        if (!this.isTextValid(data)) {
+            errors.inputText = "Input must contain characters!";
+            callback(errors);
+            
         }
-
+        if (Object.keys(errors).length !== 0) {
+            return false;
+        }
         return true;
     }
+
+
+    isTextValid(data) {
+        if (data.inputText === "") {
+            return false;
+        }
+        return true;
+    }
+
+   
     isPasswordValid(data) {
         if (data.password.length < 6 && data.password !== "") {
             return false;
