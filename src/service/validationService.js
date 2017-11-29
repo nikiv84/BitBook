@@ -78,12 +78,22 @@ class ValidationService {
             // return false;
         }
 
-        if (Object.keys(errors).length !== 0 ) {
+        if (Object.keys(errors).length !== 0) {
             return false;
         }
 
         return true;
 
+    }
+
+    isTextPostValid(data, successCallback, failureCallback) {
+        if (!this.hasAllRequiredFields(data)) {
+            const error = "Post must contain text!";
+            failureCallback(error);
+            return false;
+        }
+
+        successCallback(data);
     }
 
     hasAllRequiredFields(data) {
@@ -95,6 +105,7 @@ class ValidationService {
 
         return true;
     }
+
     isPasswordValid(data) {
         if (data.password.length < 6 && data.password !== "") {
             return false;
@@ -102,6 +113,7 @@ class ValidationService {
 
         return true;
     }
+
     isPasswordConfirm(data) {
         if ((data.password != data.repeatPassword) && data.repeatPassword !== "") {
             return false;
@@ -115,6 +127,7 @@ class ValidationService {
         }
         return true;
     }
+
     isNameValid(data) {
         const res = data.name.split(" ");
         for (const key in res) {
@@ -124,6 +137,7 @@ class ValidationService {
         }
         return true;
     }
+
     isEmailValid(data) {
         if (data.email !== "") {
             const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -132,6 +146,7 @@ class ValidationService {
         }
         return true;
     }
+    
     isLinkValid(data) {
         if (data.avatarUrl == "") {
             const re = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;

@@ -133,7 +133,7 @@ export default class EditProfile extends React.Component {
                     isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
                     style={customStyles}
-                    contentLabel="Example Modal"
+                    contentLabel="Edit profile"
                 >
                     <div>
                         <h5>Edit profile</h5>

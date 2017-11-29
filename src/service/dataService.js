@@ -82,4 +82,13 @@ export default class DataService {
             });
     }
 
+    newPost(type, postData, responseHandler) {
+        this.commService.postRequest(`${type}Posts`, postData,
+            (response) => {
+                responseHandler(response);
+            }, (error) => {
+                console.log(error);
+            });
+    }
+
 }

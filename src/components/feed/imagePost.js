@@ -29,29 +29,18 @@ const ImagePost = (props) => {
 
     return (
 
-        <div className="container feed">
+        <div className="card">
             <button onClick={onDeletion} style={{ display: showDeleteButton }}>Delete Post</button>
-            <div className="row postContainer">
-
-                <div className="col 12 text">
-                    <img src={imageUrl} style={{ width: "100%" }} />
-                    <hr />
-                </div>
-
-                <div className="col 4 date">
-                    <p>{time}</p>
-                    <p>{dateString}</p>
-                </div>
-
-                <div className="col 4 commentsNum">
-                    <p>{commentsNum} comments</p>
-                </div>
-
-                <div className="col 4 type">
-                    <p>{type}</p>
-                </div>
-
+            <div className="card-image">
+                <img src={imageUrl} style={{ width: "100%" }} />
+                <span className="btn-floating halfway-fab waves-effect waves-light red"><i className="material-icons">add</i></span>
             </div>
+
+            <div className="card-action">
+                <span>{type} post</span>
+                <span>{commentsNum} comments</span>
+            </div>
+
         </div>
     );
 };

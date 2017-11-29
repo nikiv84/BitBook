@@ -27,25 +27,23 @@ const TextPost = (props) => {
     };
 
     return (
-        <div className="container feed">
-            <button onClick={onDeletion} style={{ display: showDeleteButton }}>Delete Post</button>
-            <div className="row postContainer">
-                <div className="col 12 text">
-                    <h3>{text}</h3>
-                    <hr />
-                </div>
-                <div className="col 4 date">
-                    <p>{time}</p>
-                    <p>{dateString}</p>
-                </div>
-                <div className="col 4 commentsNum">
-                    <p>{commentsNum} comments</p>
-                </div>
-                <div className="col 4 type">
-                    <p>{type}</p>
-                </div>
+        <div className="card blue-grey darken-1">
+            <div className="card-action">
+                <span>{time}</span>
+                <span>{dateString}</span>
             </div>
+            <button onClick={onDeletion} style={{ display: showDeleteButton }}>Delete Post</button>
+            <div className="card-content white-text">
+                <p>{text}</p>
+            </div>
+
+            <div className="card-action">
+                <span>{type} post</span>
+                <span>{commentsNum} comments</span>
+            </div>
+
         </div>
+
     );
 };
 

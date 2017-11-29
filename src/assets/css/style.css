@@ -201,3 +201,24 @@ input[type=text].search-bar {
 .yellow-bg {
     background-color: #EEC133;
 }
+
+.card .card-action span:last-child{
+    float: right;
+}
+
+span.btn-floating:hover ul{
+    visibility: visible;
+}
+
+span.btn-floating {
+    overflow: visible;
+}
+
+.btn-floating ul li .btn-floating i {
+    line-height: 40px;
+}
+
+.modalButtons .fixed-action-btn ul li {
+    margin-right: 0;
+    margin-bottom: 0;
+}

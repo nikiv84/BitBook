@@ -5,6 +5,7 @@ import VideoPost from "./videoPost";
 import TextPost from "./textPost";
 // import Filter from "../common/postsFilter";
 import { Link } from "react-router-dom";
+import NewPost from "./newPost";
 
 
 export default class FeedPage extends React.Component {
@@ -81,7 +82,7 @@ export default class FeedPage extends React.Component {
             <div className="container">
                 {/* <Filter filterPosts={this.filtering} /> */}
                 <div className="row">
-                    <div className="col s12 m8 offset-m2 feedContainer">
+                    <div className="col s12 m8 offset-m2">
                         {posts.map(post => {
                             const pathToSinglePost = `/feed/${post.type.slice(0, 1).toUpperCase()}${post.type.slice(1)}/${post.id}`;
                             if (post.type == "text") {
@@ -93,19 +94,20 @@ export default class FeedPage extends React.Component {
                             } else if (post.type == "image") {
                                 return (
                                     <Link to={pathToSinglePost} key={post.id}>
-                                        <ImagePost ownId={this.state.myId} post={post} key={post.id} />
+                                        <ImagePost myId={this.state.myId} post={post} key={post.id} />
                                     </Link>
                                 );
                             } else if (post.type == "video") {
                                 return (
                                     <Link to={pathToSinglePost} key={post.id}>
-                                        <VideoPost ownId={this.state.myId} post={post} key={post.id} />
+                                        <VideoPost myId={this.state.myId} post={post} key={post.id} />
                                     </Link>
                                 );
                             }
                         })}
                     </div>
                 </div>
+                <NewPost reloadFeed={this.loadData} />
             </div>
         );
     }

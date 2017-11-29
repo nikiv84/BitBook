@@ -14,10 +14,8 @@ class AuthService {
 
     login(data, callback) {
         this.commService.postRequest("login", data, (response) => {
-            if (response.status === 200) {
-                sessionStorage.setItem(SESSION_ID_KEY, response.data.sessionId);
-                this.redirectService.redirectTo("/feed");
-            }
+            sessionStorage.setItem(SESSION_ID_KEY, response.data.sessionId);
+            this.redirectService.redirectTo("/feed");
         }, (error) => {
             callback(error.response.data.error.message);
         });
@@ -26,12 +24,12 @@ class AuthService {
     register(data, callback) {
         this.commService.postRequest("register", data,
             (response) => {
-                this.redirectService.redirectTo("/");                
+                this.redirectService.redirectTo("/");
             }, (error) => {
                 callback(error.response.data.error.message);
             });
     }
-   
+
 
     logOut() {
         sessionStorage.removeItem(SESSION_ID_KEY);

@@ -28,33 +28,22 @@ const VideoPost = (props) => {
     };
 
     return (
-        <div className="container feed">
+        <div className="card">
             <button onClick={onDeletion} style={{ display: showDeleteButton }}>Delete Post</button>
-            <div className="row postContainer">
-                <div className="col 12 text">
-                    <Iframe url={`https://www.youtube.com/embed/${youtubeVideoId}`}
-                        width="100%"
-                        height="500px"
-                        display="initial"
-                        position="relative"
-                        allowFullScreen />
-                    <hr />
-                </div>
-                
-                <div className="col 4 date">
-                    <p>{time}</p>
-                    <p>{dateString}</p>
-                </div>
-
-                <div className="col 4 commentsNum">
-                    <p>{commentsNum} comments</p>
-                </div>
-
-                <div className="col-4 type">
-                    <p>{type}</p>
-                </div>
-                
+            <div className="card-image">
+                <Iframe url={`https://www.youtube.com/embed/${youtubeVideoId}`}
+                    width="100%"
+                    height="500px"
+                    display="initial"
+                    position="relative"
+                    allowFullScreen />
             </div>
+
+            <div className="card-action">
+                <span>{type} post</span>
+                <span>{commentsNum} comments</span>
+            </div>
+
         </div>
     );
 };
