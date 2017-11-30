@@ -130,6 +130,22 @@ class ValidationService {
 
     }
 
+    isCommentValid(data, successCallback, failureCallback) {
+        if (!this.isEmptyField(data)) {
+            const error = "Comment mzst contain text!";
+            failureCallback(error);
+            return false;
+        }
+        successCallback(data);
+    }
+
+    isEmptyField(data) {
+        if (data.length == 0) {
+            return false;
+        }
+        return true;
+    }
+
     hasAllRequiredFields(data) {
         for (let key in data) {
             if (data[key] === "") {
@@ -191,7 +207,7 @@ class ValidationService {
     }
 
     isYouTubeLinkValid(data) {
-        if(data.videoUrl == "") {
+        if (data.videoUrl == "") {
             const re = /^http:\/\/(?:www\.)?youtube.com\/watch\?v=\w+(&\S*)?$/;
             const isOk = re.test(data.videoUrl);
             return isOk;

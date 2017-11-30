@@ -5,7 +5,7 @@ import ProfilePage from "./profilePage";
 import People from "../user/people";
 import UserPage from "../user/userPage";
 import FeedPage from "../feed/feedPage";
-import SinglePostPage from "../feed/singlePostPage";
+import SinglePostPage from "../singlePost/singlePostPage";
 
 class Main extends React.Component {
     constructor(props) {

@@ -4,6 +4,7 @@ import UserDTO from "../components/user/userDTO";
 import TextPostDTO from "../dto/textPostDTO";
 import VideoPostDTO from "../dto/videoPostDTO";
 import ImagePostDTO from "../dto/imagePostDTO";
+import CommentDTO from "../dto/commentDTO";
 
 export default class DataService {
     constructor() {
@@ -99,4 +100,42 @@ export default class DataService {
         });
     }
 
+    getComments(postId, responseHandler) {
+        let comments = [];
+        this.commService.getRequest(`Comments?postId=${postId}`,
+            (response) => {
+                response.data.forEach(commentData => {
+                    const { id, dateCreated, body, postId, authorName, authorId } = commentData;
+                    const comment = new CommentDTO(id, dateCreated, body, postId, authorName, authorId);
+                    comments.push(comment);
+                });
+
+                responseHandler(comments);
+
+            }, (error) => {
+                console.log(error);
+            });
+    }
+
+    newComment(comment, postId, responseHandler) {
+        const data = {
+            body: comment,
+            postId: postId
+        };
+        this.commService.postRequest("Comments", data,
+            (response) => {
+                responseHandler(response);
+            },
+            (error) => {
+                console.log(error);
+            });
+    }
+
+    getSinglePost(type, postId, responseHandler) {
+        this.commService.getRequest(`${type}Posts/${postId}`, (response) => {
+            responseHandler(response);
+        }, (error) => {
+            console.log(error);
+        });
+    }
 }
