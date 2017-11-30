@@ -56,6 +56,17 @@ export default class NewPost extends React.Component {
         this.hideShowButtons = this.hideShowButtons.bind(this);
     }
 
+    componentDidMount() {
+
+        var elem = document.querySelector(".fixed-action-btn");
+        var options = {
+            direction: "top", // Direction menu comes out
+            hoverEnabled: true, // Hover enabled
+            toolbarEnabled: false // Toolbar transition enabled
+        };
+        var instance = new M.FloatingActionButton(elem, options);
+    }
+
     handleChange(event) {
         const value = event.target.value;
         const name = event.target.name;
@@ -65,6 +76,7 @@ export default class NewPost extends React.Component {
             [name]: value
         });
     }
+
 
     activateTextModal() {
         this.setState({
@@ -161,8 +173,8 @@ export default class NewPost extends React.Component {
                 });
             });
     }
-    
-    
+
+
     saveVideoPost() {
 
         event.preventDefault();
@@ -272,26 +284,24 @@ export default class NewPost extends React.Component {
                 </div>
             </Modal>;
         return (
-
-            <div className="modalButtons">
-
+            <div>
                 <div className="fixed-action-btn">
-                    <span className="btn-floating btn-large red">
+                    <a className="btn-floating btn-large amber darken-1">
                         <i className="large material-icons">add</i>
-                        <ul>
-                            <li onClick={this.activateVideoModal}><span className="btn-floating yellow darken-1"><i className="material-icons">ondemand_video</i></span></li>
-                            <li onClick={this.activateImageModal}><span className="btn-floating green"><i className="material-icons">image</i></span></li>
-                            <li onClick={this.activateTextModal}><span className="btn-floating blue"><i className="material-icons">text_fields</i></span></li>
-                        </ul>
-                    </span>
-
+                    </a>
+                    <ul>
+                        <li onClick={this.activateVideoModal}><a className="btn-floating pink darken-3"><i className="material-icons">ondemand_video</i></a></li>
+                        <li onClick={this.activateImageModal}><a className="btn-floating purple darken-4"><i className="material-icons">image</i></a></li>
+                        <li onClick={this.activateTextModal}><a className="btn-floating light-blue darken-4"><i className="material-icons">text_fields</i></a></li>
+                    </ul>
                 </div>
 
                 {TextModal}
                 {ImgModal}
                 {VideoModal}
 
-            </div >
+            </div>
+
         );
     };
 }

@@ -42,9 +42,11 @@ const VideoPost = (props) => {
                     allowFullScreen />
             </div>
             <div className="card-content white-text">
-                <Link to={singlePostUrl} key={id}>
-                    <button className="waves-effect waves-light btn"><i className="material-icons left">chat</i>Read More</button>
-                </Link>
+                {props.hideBtn ? "" :
+                    <Link to={singlePostUrl} key={id}>
+                        <button className="waves-effect waves-light btn"><i className="material-icons left">chat</i>Read More</button>
+                    </Link>
+                }
                 <button className="waves-effect waves-light btn fl-right" onClick={onDeletion} style={{ display: showDeleteButton }}><i className="material-icons left">delete</i>Delete Post</button>
             </div>
             <div className="card-action">

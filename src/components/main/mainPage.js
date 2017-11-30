@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Header from "../common/header";
-import ProfilePage from "./profilePage";
+import ProfilePage from "../profile/profilePage";
 import People from "../user/people";
 import UserPage from "../user/userPage";
 import FeedPage from "../feed/feedPage";

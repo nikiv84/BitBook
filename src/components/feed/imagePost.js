@@ -30,21 +30,22 @@ const ImagePost = (props) => {
     const singlePostUrl = `/feed/${type.slice(0, 1).toUpperCase()}${type.slice(1)}/${id}`;
 
     return (
-
         <div className="card dark-blue darken-1 post">
             <div className="card-image">
                 <img src={imageUrl} style={{ width: "100%" }} />
-                <Link to={singlePostUrl} key={id}>
-                    <button className="waves-effect waves-light btn"><i className="material-icons left">chat</i>Read More</button>
-                </Link>
+            </div>
+            <div className="card-content white-text">
+                {props.hideBtn ? "" :
+                    <Link to={singlePostUrl} key={id}>
+                        <button className="waves-effect waves-light btn"><i className="material-icons left">chat</i>Read More</button>
+                    </Link>
+                }
                 <button className="waves-effect waves-light btn fl-right" onClick={onDeletion} style={{ display: showDeleteButton }}><i className="material-icons left">delete</i>Delete Post</button>
             </div>
-
             <div className="card-action">
                 <span>{type} post</span>
                 <span>{commentsNum} comments</span>
             </div>
-
         </div>
     );
 };

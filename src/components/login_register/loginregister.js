@@ -17,9 +17,9 @@ class LoginRegister extends React.Component {
                         <div className="row">
                             <Welcome />
                             <Switch>
-                                <Redirect exact from="/" to="/login" />
-                                <Route path='/login' component={LoginForm} />
-                                <Route path='/register' component={RegisterForm} />
+                                <Route path="/login" component={LoginForm} />
+                                <Route path="/register" component={RegisterForm} />
+                                <Redirect from="/" to="/login" />
                             </Switch>
                         </div>
                     </div>

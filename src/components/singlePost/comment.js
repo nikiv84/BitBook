@@ -4,20 +4,17 @@ import { Link } from "react-router-dom";
 
 const Comment = (props) => {
     const { id, dateCreated, body, postId, authorName, authorId } = props.comment;
-    let isItMe = false;
-    
-    props.myId == authorId ? isItMe = true : false;
 
     return (
         <div className="comment">
-            <Link to={`/profile/${authorId}`}><h5>{authorName}</h5></Link>
+            {authorId == props.myId ? <Link to={"/profile"}><h5>{authorName}</h5></Link> : <Link to={`/profile/${authorId}`}><h5>{authorName}</h5></Link>}
             <hr />
             <p>{body}</p>
         </div>
     );
 };
 
-Comment.propTyps = {
+Comment.propTypes = {
     comment: PropTypes.object,
 };
 

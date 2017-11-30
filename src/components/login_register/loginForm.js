@@ -50,7 +50,8 @@ class LoginForm extends React.Component {
         });
     }
 
-    loginHandler() {
+    loginHandler(e) {
+        e.preventDefault();
 
         const data = {
             username: this.state.username,

@@ -206,21 +206,10 @@ input[type=text].search-bar {
     float: right;
 }
 
-span.btn-floating:hover ul{
-    visibility: visible;
-}
-
-span.btn-floating {
-    overflow: visible;
-}
-
-.btn-floating ul li .btn-floating i {
-    line-height: 40px;
-}
-
-.modalButtons .fixed-action-btn ul li {
-    margin-right: 0;
-    margin-bottom: 0;
+.card-image::after, .card-content::after {
+    content: "";
+    display: block;
+    clear: both;
 }
 
 .post .btn, .post .btn-large, .post .btn-flat {

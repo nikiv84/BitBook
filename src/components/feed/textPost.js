@@ -38,9 +38,11 @@ const TextPost = (props) => {
             <div className="card-content white-text">
                 <p>{text}</p>
                 <hr />
-                <Link to={singlePostUrl} key={id}>
-                    <button className="waves-effect waves-light btn"><i className="material-icons left">chat</i>Read More</button>
-                </Link>
+                {props.hideBtn ? "" :
+                    <Link to={singlePostUrl} key={id}>
+                        <button className="waves-effect waves-light btn"><i className="material-icons left">chat</i>Read More</button>
+                    </Link>
+                }
                 <button className="waves-effect waves-light btn fl-right" onClick={onDeletion} style={{ display: showDeleteButton }}><i className="material-icons left">delete</i>Delete Post</button>
             </div>
 

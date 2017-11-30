@@ -86,54 +86,54 @@ class ValidationService {
 
     }
 
-    isTextPostValid(data, successCallback, failureCallback) {
+    isTextPostValid(data, successCallback, errorCallback) {
         if (!this.hasAllRequiredFields(data)) {
             const error = "Post must contain text!";
-            failureCallback(error);
+            errorCallback(error);
             return false;
         }
 
         successCallback(data);
     }
 
-    isImagePostValid(data, successCallback, failureCallback) {
+    isImagePostValid(data, successCallback, errorCallback) {
         let errors = {};
         if (!this.hasAllRequiredFields(data)) {
             errors.allFields = "Post must contain text!";
-            failureCallback(errors);
+            errorCallback(errors);
             return false;
         }
 
         if (!this.isLinkValid(data)) {
             errors.link = "Link is not valid!";
-            failureCallback(errors);
+            errorCallback(errors);
             return false;
         }
         successCallback(data);
     }
 
-    isVideoPostValid(data, successCallback, failureCallback) {
+    isVideoPostValid(data, successCallback, errorCallback) {
         let errors = {};
 
         if (!this.hasAllRequiredFields(data)) {
-            errors.allFields = "Post must contain text!!!!";
-            failureCallback(errors);
+            errors.allFields = "Post must contain text!";
+            errorCallback(errors);
             return false;
         }
 
         if (!this.isYouTubeLinkValid(data)) {
             errors.link = "You Tube link is not valid!";
-            failureCallback(errors);
+            errorCallback(errors);
             return false;
         }
         successCallback(data);
 
     }
 
-    isCommentValid(data, successCallback, failureCallback) {
+    isCommentValid(data, successCallback, errorCallback) {
         if (!this.isEmptyField(data)) {
-            const error = "Comment mzst contain text!";
-            failureCallback(error);
+            const error = "Comment must contain text!";
+            errorCallback(error);
             return false;
         }
         successCallback(data);

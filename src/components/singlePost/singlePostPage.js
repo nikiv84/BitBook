@@ -15,7 +15,8 @@ export default class SinglePostPage extends React.Component {
             postData: null,
             comments: [],
             comment: "",
-            myId: ""
+            myId: "",
+            commentError: ""
         };
 
         this.validationService = new ValidationService();
@@ -28,6 +29,7 @@ export default class SinglePostPage extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.newComment = this.newComment.bind(this);
         this.loadData = this.loadData.bind(this);
+        this.getSinglePost = this.getSinglePost.bind(this);
     }
 
     handleChange(event) {
@@ -47,12 +49,16 @@ export default class SinglePostPage extends React.Component {
                 this.dataService.newComment(comment, postId,
                     (response) => {
                         this.setState({
-                            comment: ""
+                            comment: "",
+                            commentError: ""
                         });
                         this.loadData();
+                        this.getSinglePost();   
                     });
             }, (error) => {
-                console.log(error);
+                this.setState({
+                    commentError: error
+                });
             });
     }
 
@@ -73,17 +79,19 @@ export default class SinglePostPage extends React.Component {
             });
     }
 
-    componentDidMount() {
+    getSinglePost() {
         const postId = this.props.match.params.postId;
         const postType = this.props.match.params.type;
-
         this.dataService.getSinglePost(postType, postId,
             (singlePost) => {
                 this.setState({
                     postData: singlePost.data
                 });
             });
+    }
 
+    componentDidMount() {
+        this.getSinglePost();
         this.loadData();
     }
 
@@ -97,16 +105,17 @@ export default class SinglePostPage extends React.Component {
 
         let postType = null;
 
+
         switch (post.type) {
-            case "text":
-                postType = <TextPost myId={this.state.myId} post={post} />;
-                break;
-            case "image":
-                postType = <ImagePost myId={this.state.myId} post={post} />;
-                break;
-            case "video":
-                postType = <VideoPost myId={this.state.myId} post={post} />;
-                break;
+        case "text":
+            postType = <TextPost myId={this.state.myId} post={post} hideBtn={true} />;
+            break;
+        case "image":
+            postType = <ImagePost myId={this.state.myId} post={post} hideBtn={true} />;
+            break;
+        case "video":
+            postType = <VideoPost myId={this.state.myId} post={post} hideBtn={true} />;
+            break;
         }
 
         return (
@@ -124,9 +133,13 @@ export default class SinglePostPage extends React.Component {
                     </div>
 
                     <div className="col s2 m1">
-                        <span onClick={this.newComment} className="btn-floating btn-large waves-effect waves-light red">
+                        <span onClick={this.newComment} className="btn-floating btn-large waves-effect waves-light light-blue darken-4">
                             <i className="material-icons">comment</i>
                         </span>
+
+                    </div>
+                    <div className="col s12 m8 offset-m2">
+                        <p id="error">{this.state.commentError ? `${this.state.commentError}` : ""}</p>
                     </div>
                 </div>
 
