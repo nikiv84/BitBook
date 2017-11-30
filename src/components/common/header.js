@@ -9,9 +9,15 @@ class Header extends React.Component {
         this.authService = new AuthService();
     }
 
+    componentDidMount() {
+        var elem = document.querySelector(".sidenav");
+        var instance = new M.Sidenav(elem);
+    }
+
     handleLogout() {
         this.authService.logOut();
     }
+
     render() {
         return (
             <nav className="nav-extended transnav">

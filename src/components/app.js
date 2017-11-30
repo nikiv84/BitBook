@@ -1,5 +1,5 @@
 import React from "react";
-import Main from "./profile/mainPage";
+import Main from "./main/mainPage";
 import LoginRegister from "./login_register/loginRegister";
 import AuthService from "../service/authService";
 

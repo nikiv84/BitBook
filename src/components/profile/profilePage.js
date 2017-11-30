@@ -34,8 +34,6 @@ class ProfilePage extends React.Component {
         this.getMyProfile();
     }
 
-
-
     render() {
         if (!this.state.profile) {
             return <h1>Loading...</h1>;

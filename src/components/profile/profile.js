@@ -3,7 +3,6 @@ import { AVATAR_PLACEHOLDER } from "../../constants";
 import PropTypes from "prop-types";
 import EditProfile from "./editProfile";
 import DataService from "../../service/dataService";
-import User from "../profile/user";
 
 const customStyles = {
     content: {

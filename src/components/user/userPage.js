@@ -1,10 +1,9 @@
 import React from "react";
-import Header from "./header";
 import AuthService from "../../service/authService";
 import DataService from "../../service/dataService";
 import Profile from "../profile/profile";
 
-class Main extends React.Component {
+class UserPage extends React.Component {
     constructor(props) {
         super(props);
         this.authService = new AuthService();
@@ -16,22 +15,22 @@ class Main extends React.Component {
 
         this.initBind();
     }
+
     initBind() {
-        this.getMyProfile = this.getMyProfile.bind(this);
+        this.getProfile = this.getProfile.bind(this);
     }
 
     componentDidMount() {
-        this.getMyProfile();
+        this.getProfile();
     }
 
-    getMyProfile() {
-        this.dataService.getProfile((profileData) => {
+    getProfile() {
+        this.dataService.getUser(this.props.match.params.id, (profileData) => {
             this.setState({
                 profile: profileData
             });
         });
     }
-    
 
 
 
@@ -40,14 +39,9 @@ class Main extends React.Component {
             return <h1>Loading...</h1>;
         }
         return (
-            <div>
-
-                <Header />
-                <Profile profile={this.state.profile} />
-
-            </div>
+            <Profile profile={this.state.profile} />
         );
     }
 };
 
-export default Main;
+export default UserPage;

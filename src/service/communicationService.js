@@ -3,12 +3,12 @@ import axios from "axios";
 
 class CommunicationService {
     createHeaders() {
-        const requestHeaders = {
+        let requestHeaders = {
             "Content-Type": "application/json",
             "Accept": "application/json",
             "Key": API_KEY
         };
-        
+
         const sessionId = sessionStorage.getItem(SESSION_ID_KEY);
 
         if (sessionId) {
@@ -25,8 +25,7 @@ class CommunicationService {
         axios({
             method: "GET",
             headers: headers,
-            url: requestUrl,
-            json: true
+            url: requestUrl
         })
             .then(result => {
                 return getDataHandler(result);
@@ -42,8 +41,7 @@ class CommunicationService {
             method: "POST",
             url: requestUrl,
             data: data,
-            headers: headers,
-            json: true
+            headers: headers
         })
             .then(result => {
                 return postDataHandler(result);
@@ -68,6 +66,19 @@ class CommunicationService {
                 putErrorHandler(error);
             });
     }
+
+    deleteRequest(url, deleteHandler, errorHandler) {
+
+        const requestUrl = `${BASE_URL}/${url}`;
+
+        axios.delete(requestUrl, {
+            headers: this.createHeaders()
+        })
+            .then(response => deleteHandler(response))
+            .catch(error => errorHandler(error));
+
+    }
+
 
 }
 

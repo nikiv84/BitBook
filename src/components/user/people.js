@@ -3,6 +3,7 @@ import DataService from "../../service/dataService";
 import CommunicationService from "../../service/communicationService";
 import User from "./user";
 import Search from "../common/search";
+import Profile from "../profile/profilePage";
 import { Link } from "react-router-dom";
 
 export default class People extends React.Component {
@@ -20,13 +21,12 @@ export default class People extends React.Component {
     }
 
     getUsers() {
-        this.commService.getRequest("users", (result) => {
+        this.dataService.getPeople((users) => {
+            console.log("Ovde", users);
             this.setState({
-                users: result.data,
-                filteredUsers: result.data
+                users: users,
+                filteredUsers: users
             });
-        }, (error) => {
-            console.log(error);
         });
     }
 
@@ -77,7 +77,7 @@ export default class People extends React.Component {
                     {users.filter(user => {
                         return user.id !== this.state.me;
                     }).map((user) => {
-                        return <User user={user} key={user.id} />;
+                        return <Link to={`/profile/${user.id}`} key={user.id}><User user={user} key={user.id} /></Link>;
                     })}
                 </div>
             </div>
