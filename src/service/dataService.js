@@ -5,6 +5,7 @@ import TextPostDTO from "../dto/textPostDTO";
 import VideoPostDTO from "../dto/videoPostDTO";
 import ImagePostDTO from "../dto/imagePostDTO";
 import CommentDTO from "../dto/commentDTO";
+import { POSTS_PER_PAGE } from "../constants";
 
 export default class DataService {
     constructor() {
@@ -58,9 +59,9 @@ export default class DataService {
             });
     }
 
-    getPosts(postsHandler) {
+    getPosts(skip, postsHandler) {
         let posts = [];
-        this.commService.getRequest("Posts",
+        this.commService.getRequest(`Posts/?$orderby=DateCreated desc&$skip=${skip}&$top=${POSTS_PER_PAGE}`,
             (response) => {
                 response.data.forEach(post => {
                     const { id, dateCreated, userId, userDisplayName, type, text, commentsNum, imageUrl, videoUrl } = post;
@@ -80,6 +81,14 @@ export default class DataService {
 
             }, (error) => {
                 console.log(error);
+            });
+    }
+
+    getPostsCount(responseHandler) {
+        this.commService.getRequest("posts/count",
+            (response) => {
+                console.log(response);
+                responseHandler(response);
             });
     }
 
@@ -137,5 +146,19 @@ export default class DataService {
         }, (error) => {
             console.log(error);
         });
+    }
+
+    fileUpload(file, responseHandler, errorHandler) {
+        let formData = new FormData();
+        formData.append("file", file);
+        console.log(formData.file);
+
+        this.commService.uploadRequest("upload", formData, (response) => {
+            responseHandler(response);
+        }, (error) => {
+            errorHandler(error);
+        }
+        );
+
     }
 }
