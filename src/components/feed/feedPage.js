@@ -99,6 +99,7 @@ export default class FeedPage extends React.Component {
     render() {
         const posts = this.state.filteredPosts;
         const pageRange = Math.floor(this.state.numOfPosts / POSTS_PER_PAGE);
+        const paginationClass = "amber darken-1";
 
         return (
             <div className="container newsfeed">
@@ -124,15 +125,17 @@ export default class FeedPage extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <Pagination
-                        activePage={this.state.activePage}
-                        itemsCountPerPage={POSTS_PER_PAGE}
-                        totalItemsCount={this.state.numOfPosts}
-                        pageRangeDisplayed={this.pageRange}
-                        onChange={this.handlePageChange}
-                    />
+                    <div className="col s12 m8 offset-m2 center">
+                        <Pagination
+                            activePage={this.state.activePage}
+                            itemsCountPerPage={POSTS_PER_PAGE}
+                            totalItemsCount={this.state.numOfPosts}
+                            pageRangeDisplayed={this.pageRange}
+                            onChange={this.handlePageChange}
+                            activeClass={paginationClass}
+                        />
+                    </div>
                 </div>
-
                 <NewPost reloadFeed={this.loadData} />
             </div>
         );
