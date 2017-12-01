@@ -243,3 +243,11 @@ input[type=text].search-bar {
 .post-type-select {
     display: block;
 }
+
+input[type="file"] {
+    display: none;
+}
+
+.edit-profile .pad0 {
+    padding: 0;
+}

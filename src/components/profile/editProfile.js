@@ -187,37 +187,55 @@ export default class EditProfile extends React.Component {
                     style={customStyles}
                     contentLabel="Edit profile"
                 >
-                    <div>
+                    <div className="edit-profile">
                         <h5>Edit profile</h5>
+                        <label htmlFor="name">Name</label>
                         <input
                             type="text"
+                            id="name"
                             name="name"
                             value={this.state.name}
                             placeholder="Edit name"
                             onChange={this.handleChange} />
 
-                        <input type="email" name="email" value={this.state.email} placeholder="Edit email" onChange={this.handleChange} />
+                        <label htmlFor="email">Email</label>
+                        <input id="email" type="email" name="email" value={this.state.email} placeholder="Edit email" onChange={this.handleChange} />
                         {/* <span>{this.getErrorMesage("email")} </span> */}
 
-                        <textarea name="about" value={this.state.about} placeholder="Edit about" style={{ "height": "120px" }} onChange={this.handleChange} />
+                        <label htmlFor="about">About me</label>
+                        <textarea id="about" name="about" value={this.state.about} placeholder="Edit about" style={{ "height": "120px" }} onChange={this.handleChange} />
                         {/* <span>{this.getErrorMesage("about")} </span> */}
 
-                        <textarea name="aboutShort" value={this.state.aboutShort} placeholder="Edit short about" style={{ "height": "60px" }} onChange={this.handleChange} />
+                        <label htmlFor="aboutShort">Short bio</label>
+                        <textarea id="aboutShort" name="aboutShort" value={this.state.aboutShort} placeholder="Edit short about" style={{ "height": "60px" }} onChange={this.handleChange} />
                         {/* <span>{this.getErrorMesage("aboutShort")} </span> */}
 
                         {/* <input name="avatarUrl" value={this.state.avatar} type="text" placeholder="New profile image URL" onChange={this.handleChange} /> */}
                         {/* <span>{this.getErrorMesage("avatarUrl")} </span> */}
 
-                        <input type="file" onChange={this.onChange} />
+                        <div className="row">
+                            <div className="col s12 pad0">
+                                <label htmlFor="file-upload" className="waves-effect waves-light btn custom-file-upload blue darken-4">
+                                    <i className="material-icons left">wallpaper</i> Update Profile Pic
+                                </label>
+                                <input id="file-upload" type="file" onChange={this.onChange} />
+                            </div>
+                        </div>
 
-                        <button onClick={this.saveChanges} className="waves-effect waves-light btn">Save Changes</button>
+                        <div className="row">
+                            <div className="col s6 pad0">
+                                <button onClick={this.saveChanges} className="waves-effect waves-light btn">Save Changes</button>
+                            </div>
+                            <div className="col s6 pad0">
+                                <button onClick={this.closeModal} className="waves-effect waves-light btn closebtn red darken-3">Close</button>
+                            </div>
+                        </div>
 
-                        <button onClick={this.closeModal} className="waves-effect waves-light btn closebtn">Close</button>
 
                         <p id="error">{this.state.isNotValid ? `${this.state.errorMsg}` : ""}</p>
                     </div>
                 </Modal>
-            </div>
+            </div >
         );
     }
 };
