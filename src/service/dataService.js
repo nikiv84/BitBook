@@ -151,7 +151,6 @@ export default class DataService {
     fileUpload(file, responseHandler, errorHandler) {
         let formData = new FormData();
         formData.append("file", file);
-        console.log(formData.file);
 
         this.commService.uploadRequest("upload", formData, (response) => {
             responseHandler(response);

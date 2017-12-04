@@ -57,6 +57,7 @@ export default class NewPost extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.onChange = this.onChange.bind(this);
         this.hideShowButtons = this.hideShowButtons.bind(this);
+        this.previewImage = this.previewImage.bind(this);
     }
 
     componentDidMount() {
@@ -82,7 +83,18 @@ export default class NewPost extends React.Component {
 
     onChange(e) {
         this.setState({ file: e.target.files[0] });
-        console.log(e.target.files[0]);
+    }
+
+    previewImage() {
+
+        this.dataService.fileUpload(this.state.file, (response) => {
+            this.setState({
+                imageUrl: response.data
+            });
+        }, (error) => {
+            console.log(error);
+        });
+
     }
 
 
@@ -160,36 +172,28 @@ export default class NewPost extends React.Component {
         event.preventDefault();
 
         let image = {
-            imageUrl: AVATAR_PLACEHOLDER
+            imageUrl: ""
         };
 
-        this.dataService.fileUpload(this.state.file, (response) => {
-            if (response) {
-                image.imageUrl = response.data;
-            }
+        this.state.imageUrl ? image.imageUrl = this.state.imageUrl : image.imageUrl = AVATAR_PLACEHOLDER;
 
-            this.validationService.isImagePostValid(image,
-                (image) => {
-                    console.log("imageUrl: ", image);
-                    this.dataService.newPost("Image", image,
-                        (response) => {
-                            this.closeModal();
-                            this.setState({
-                                text: "",
-                                imageUrl: "",
-                                videoUrl: ""
-                            });
-                            this.props.reloadFeed();
+
+        this.validationService.isImagePostValid(image,
+            (image) => {
+                this.dataService.newPost("Image", image,
+                    (response) => {
+                        this.closeModal();
+                        this.setState({
+                            imageUrl: image.imageUrl
                         });
-                },
-                (errors) => {
-                    this.setState({
-                        errors: errors
+                        this.props.reloadFeed();
                     });
+            },
+            (errors) => {
+                this.setState({
+                    errors: errors
                 });
-        }, (error) => {
-            console.log(error);
-        });
+            });
 
     }
 
@@ -266,9 +270,13 @@ export default class NewPost extends React.Component {
                     <div className="row">
                         <div className="col s12 pad0">
                             <label htmlFor="file-upload" className="waves-effect waves-light btn custom-file-upload blue darken-4">
-                                <i className="material-icons left">wallpaper</i> Upload Image
-                                </label>
+                                <i className="material-icons left">wallpaper</i> Choose image
+                            </label>
                             <input id="file-upload" type="file" onChange={this.onChange} />
+                            <button onClick={this.previewImage} className="waves-effect waves-light btn">Upload</button>
+                        </div>
+                        <div className="col s12">
+                            {this.state.imageUrl ? <img src={this.state.imageUrl} /> : ""}
                         </div>
                     </div>
 

@@ -28,7 +28,7 @@ const VideoPost = (props) => {
                 redirectService.redirectTo("/");
             });
     };
-    const singlePostUrl = `/feed/${type.slice(0, 1).toUpperCase()}${type.slice(1)}/${id}`;
+    const singlePostURL = `/feed/${type.slice(0, 1).toUpperCase()}${type.slice(1)}/${id}`;
 
     return (
         <div className="card dark-blue darken-1 post">
@@ -43,7 +43,7 @@ const VideoPost = (props) => {
             </div>
             <div className="card-content white-text">
                 {props.hideBtn ? "" :
-                    <Link to={singlePostUrl} key={id}>
+                    <Link to={singlePostURL} key={id}>
                         <button className="waves-effect waves-light btn"><i className="material-icons left">chat</i>Read More</button>
                     </Link>
                 }
