@@ -4,6 +4,7 @@ import DataService from "../../service/dataService";
 import ValidationService from "../../service/validationService";
 import RedirectService from "../../service/redirectService";
 import PropTypes from "prop-types";
+import { AVATAR_PLACEHOLDER } from "../../constants";
 
 const customStyles = {
     content: {
@@ -34,7 +35,8 @@ export default class NewPost extends React.Component {
             errors: {
                 allFields: "",
                 link: ""
-            }
+            },
+            file: null
         };
 
         this.dataService = new DataService();
@@ -53,7 +55,9 @@ export default class NewPost extends React.Component {
         this.saveImagePost = this.saveImagePost.bind(this);
         this.saveVideoPost = this.saveVideoPost.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.hideShowButtons = this.hideShowButtons.bind(this);
+        this.previewImage = this.previewImage.bind(this);
     }
 
     componentDidMount() {
@@ -77,6 +81,22 @@ export default class NewPost extends React.Component {
         });
     }
 
+    onChange(e) {
+        this.setState({ file: e.target.files[0] });
+    }
+
+    previewImage() {
+
+        this.dataService.fileUpload(this.state.file, (response) => {
+            this.setState({
+                imageUrl: response.data
+            });
+        }, (error) => {
+            console.log(error);
+        });
+
+    }
+
 
     activateTextModal() {
         this.setState({
@@ -95,6 +115,7 @@ export default class NewPost extends React.Component {
             videoModalOpen: true
         });
     }
+
     closeModal() {
         this.setState({
             textModalOpen: false,
@@ -150,19 +171,20 @@ export default class NewPost extends React.Component {
 
         event.preventDefault();
 
-        let imageUrl = {
-            imageUrl: this.state.imageUrl
+        let image = {
+            imageUrl: ""
         };
 
-        this.validationService.isImagePostValid(imageUrl,
-            (imageUrl) => {
-                this.dataService.newPost("Image", imageUrl,
+        this.state.imageUrl ? image.imageUrl = this.state.imageUrl : image.imageUrl = AVATAR_PLACEHOLDER;
+
+
+        this.validationService.isImagePostValid(image,
+            (image) => {
+                this.dataService.newPost("Image", image,
                     (response) => {
                         this.closeModal();
                         this.setState({
-                            text: "",
-                            imageUrl: "",
-                            videoUrl: ""
+                            imageUrl: image.imageUrl
                         });
                         this.props.reloadFeed();
                     });
@@ -172,6 +194,7 @@ export default class NewPost extends React.Component {
                     errors: errors
                 });
             });
+
     }
 
 
@@ -244,15 +267,30 @@ export default class NewPost extends React.Component {
                         <h4 className="modal-title">New Image Post</h4>
                     </div>
 
-                    <div className="modal-body">
-                        Image URL: <textarea cols="10" rows="2" className="col-12" type="text" name="imageUrl" onChange={this.handleChange} value={this.state.imageUrl} /><br />
-                        <div className="nameError text-danger">{this.state.errors.allFields}</div>
-                        <div className="fieldsError text-danger">{this.state.errors.link}</div>
+                    <div className="row">
+                        <div className="col s12 pad0">
+                            <label htmlFor="file-upload" className="waves-effect waves-light btn custom-file-upload blue darken-4">
+<<<<<<< HEAD
+                                <i className="material-icons left">wallpaper</i> Upload Image
+=======
+                                <i className="material-icons left">wallpaper</i> Choose image
+>>>>>>> e263c170f93265e8760f68248c5b36fe5cad5af0
+                            </label>
+                            <input id="file-upload" type="file" onChange={this.onChange} />
+                            <button onClick={this.previewImage} className="waves-effect waves-light btn">Upload</button>
+                        </div>
+                        <div className="col s12">
+                            {this.state.imageUrl ? <img src={this.state.imageUrl} /> : ""}
+                        </div>
                     </div>
 
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
-                        <button type="button" className="btn btn-primary" onClick={this.saveImagePost}>Save post</button>
+                    <div className="row">
+                        <div className="col s6 pad0">
+                            <button onClick={this.saveImagePost} className="waves-effect waves-light btn">Post</button>
+                        </div>
+                        <div className="col s6 pad0">
+                            <button onClick={this.closeModal} className="waves-effect waves-light btn closebtn red darken-3">Discard</button>
+                        </div>
                     </div>
 
                 </div>

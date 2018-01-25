@@ -4,55 +4,57 @@ import { Link } from "react-router-dom";
 import RedirectService from "../../service/redirectService";
 import DataService from "../../service/dataService";
 
-const ImagePost = (props) => {
-    const redirectService = new RedirectService();
-    const dataService = new DataService();
+export default class ImagePost extends React.Component {
 
-    const { imageUrl, id, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
-    const myId = props.myId;
-
-    const date = new Date(dateCreated);
-    const time = date.toLocaleTimeString();
-    const dateString = date.toLocaleDateString();
-
-    let showDeleteButton = "";
-
-    if (myId !== userId) {
-        showDeleteButton = "none";
+    constructor(props) {
+        super(props);
+        this.redirectService = new RedirectService();
+        this.dataService = new DataService();
+        this.onDeletion = this.onDeletion.bind(this);
     }
 
-    const onDeletion = () => {
-        dataService.deletePost(id,
+    onDeletion() {
+        this.dataService.deletePost(id,
             (response) => {
-                redirectService.redirectTo("/");
+                this.redirectService.redirectTo("/");
             });
     };
-    const singlePostUrl = `/feed/${type.slice(0, 1).toUpperCase()}${type.slice(1)}/${id}`;
 
-    return (
-        <div className="card dark-blue darken-1 post">
-            <div className="card-image">
-                <img src={imageUrl} style={{ width: "100%" }} />
+    render() {
+        const { imageUrl, id, dateCreated, userId, userDisplayName, type, commentsNum } = this.props.post;
+        const myId = this.props.myId;
+
+        let showDeleteButton = "";
+
+        if (myId !== userId) {
+            showDeleteButton = "none";
+        }
+
+        const singlePostUrl = `/feed/${type.slice(0, 1).toUpperCase()}${type.slice(1)}/${id}`;
+
+        return (
+            <div className="card dark-blue darken-1 post">
+                <div className="card-image">
+                    <img className="materialboxed" src={imageUrl} />
+                </div>
+                <div className="card-content white-text">
+                    {this.props.hideBtn ? "" :
+                        <Link to={singlePostUrl} key={id}>
+                            <button className="waves-effect waves-light btn"><i className="material-icons left">chat</i>Read More</button>
+                        </Link>
+                    }
+                    <button className="waves-effect waves-light btn fl-right" onClick={this.onDeletion} style={{ display: showDeleteButton }}><i className="material-icons left">delete</i>Delete Post</button>
+                </div>
+                <div className="card-action">
+                    <span>{type} post</span>
+                    <span>{commentsNum} comments</span>
+                </div>
             </div>
-            <div className="card-content white-text">
-                {props.hideBtn ? "" :
-                    <Link to={singlePostUrl} key={id}>
-                        <button className="waves-effect waves-light btn"><i className="material-icons left">chat</i>Read More</button>
-                    </Link>
-                }
-                <button className="waves-effect waves-light btn fl-right" onClick={onDeletion} style={{ display: showDeleteButton }}><i className="material-icons left">delete</i>Delete Post</button>
-            </div>
-            <div className="card-action">
-                <span>{type} post</span>
-                <span>{commentsNum} comments</span>
-            </div>
-        </div>
-    );
+        );
+    }
 };
 
 ImagePost.propTypes = {
     post: PropTypes.object,
     ownId: PropTypes.number
 };
-
-export default ImagePost;

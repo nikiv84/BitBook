@@ -68,7 +68,6 @@ class CommunicationService {
     }
 
     deleteRequest(url, deleteHandler, errorHandler) {
-
         const requestUrl = `${BASE_URL}/${url}`;
 
         axios.delete(requestUrl, {
@@ -76,7 +75,26 @@ class CommunicationService {
         })
             .then(response => deleteHandler(response))
             .catch(error => errorHandler(error));
+    }
 
+    uploadRequest(url, data, successHandler, errorHandler) {
+        console.log(data);
+        const requestUrl = `${BASE_URL}/${url}`;
+        let headers = this.createHeaders();
+        headers["Content-Type"] = "multipart/form-data";
+
+        axios({
+            method: "POST",
+            url: requestUrl,
+            headers: headers,
+            data: data
+        })
+            .then(result => {
+                return successHandler(result);
+            })
+            .catch(error => {
+                errorHandler(error);
+            });
     }
 
 
