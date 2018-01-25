@@ -70,32 +70,6 @@ class LoginForm extends React.Component {
         } else {
             console.log("Else");
         }
-
-        // if (this.validService.isLoginFormValid(data, (errors) => {
-        //     this.setState({
-        //         isNotValid: true,
-        //         errorMsg: errors,
-        //         loading: false
-        //     });
-        // })) {
-        //     this.setState({
-        //         isNotValid: false,
-        //         loading: true
-        //     });
-        //     this.authService.login(data, (errors) => {
-        //         this.setState({
-        //             isNotValid: true,
-        //             errorMsg: errors,
-        //             loading: false
-        //         });
-        //     });
-        // } else {
-        //     this.setState({
-        //         isNotValid: true,
-        //         errorMsg: "General message"
-        //     });
-        // }
-
     }
 
     render() {
