@@ -7,7 +7,6 @@ import RedirectService from "../../service/redirectService";
 import CommunicationService from "../../service/communicationService";
 import ValidationService from "../../service/validationService";
 
-
 const customStyles = {
     content: {
         top: "50%",

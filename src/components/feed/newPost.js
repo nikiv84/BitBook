@@ -267,7 +267,7 @@ export default class NewPost extends React.Component {
                         <div className="col s12 pad0">
                             <label htmlFor="file-upload" className="waves-effect waves-light btn custom-file-upload blue darken-4">
                                 <i className="material-icons left">wallpaper</i> Upload Image
-                                </label>
+                            </label>
                             <input id="file-upload" type="file" onChange={this.onChange} />
                         </div>
                     </div>
