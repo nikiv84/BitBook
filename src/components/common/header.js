@@ -1,12 +1,11 @@
 import React from "react";
-import AuthService from "../../service/authService";
+import { authService } from "../../service/authService";
 import { Link } from "react-router-dom";
 
 class Header extends React.Component {
     constructor(props) {
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
-        this.authService = new AuthService();
     }
 
     componentDidMount() {
@@ -15,7 +14,7 @@ class Header extends React.Component {
     }
 
     handleLogout() {
-        this.authService.logOut();
+        authService.logOut();
     }
 
     render() {

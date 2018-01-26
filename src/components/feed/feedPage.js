@@ -1,5 +1,5 @@
 import React from "react";
-import DataService from "../../service/dataService";
+import { dataService } from "../../service/dataService";
 import ImagePost from "./imagePost";
 import VideoPost from "./videoPost";
 import TextPost from "./textPost";
@@ -20,8 +20,6 @@ export default class FeedPage extends React.Component {
             activePage: 1,
             numOfPosts: null
         };
-        this.dataService = new DataService();
-
         this.bindEventHandlers();
     }
 
@@ -38,7 +36,7 @@ export default class FeedPage extends React.Component {
         });
         let skipAmount = pageNumber - 1;
         let skip = skipAmount * POSTS_PER_PAGE;
-        this.dataService.getPosts(skip,
+        dataService.getPosts(skip,
             (posts) => {
                 this.setState({
                     allPosts: posts,
@@ -48,7 +46,7 @@ export default class FeedPage extends React.Component {
     }
 
     postsCount() {
-        this.dataService.getPostsCount((result) => {
+        dataService.getPostsCount((result) => {
             this.setState({
                 numOfPosts: result.data
             });
@@ -56,7 +54,7 @@ export default class FeedPage extends React.Component {
     }
 
     loadData() {
-        this.dataService.getPosts(0,
+        dataService.getPosts(0,
             (posts) => {
                 this.setState({
                     allPosts: posts,
@@ -64,7 +62,7 @@ export default class FeedPage extends React.Component {
                 });
             });
 
-        this.dataService.getProfile(
+        dataService.getProfile(
             (profile) => {
                 this.setState({
                     myId: profile.userId

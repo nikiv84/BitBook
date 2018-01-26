@@ -1,13 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import CommunicationService from "../../service/communicationService";
-import DataService from "../../service/dataService";
-import RedirectService from "../../service/redirectService";
+import {dataService} from "../../service/dataService";
+import { redirectService } from "../../service/redirectService";
 import { Link } from "react-router-dom";
 
 const TextPost = (props) => {
-    const redirectService = new RedirectService();
-    const dataService = new DataService();
     const { text, id, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
     const myId = props.myId;
 

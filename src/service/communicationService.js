@@ -100,4 +100,4 @@ class CommunicationService {
 
 }
 
-export default CommunicationService;
+export const commService = new CommunicationService();

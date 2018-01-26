@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,600,800');
-
 body {
     font-family: 'Poppins', sans-serif;
     background-image: url(../img/bg2.png);
@@ -16,6 +15,17 @@ html {
 
 .vh-center {
     margin-top: 5%;
+}
+
+.wrapper {
+    min-height: calc(100vh - 185px);
+    position: relative;
+}
+
+footer {
+    height: 165px;
+    max-height: 165px;
+    overflow: hidden;
 }
 
 .panel-bg {
@@ -83,15 +93,18 @@ nav.transnav ul li a {
     border-radius: 0 0 10px 10px;
 }
 
-nav.transnav ul li a:hover {
+footer .brand-logo {
+    color: #fff;
+    display: inline-block;
+    font-size: 2.1rem;
+    padding: 0;
+}
+
+nav.transnav ul li a:hover, footer a {
     border-radius: 0 0 10px 10px;
 }
 
-nav.transnav .brand-logo span {
-    font-weight: 800;
-}
-
-nav.transnav .brand-logo span {
+nav.transnav .brand-logo span, footer .brand-logo span {
     font-weight: 600;
 }
 
@@ -113,9 +126,10 @@ li {
     font-size: 20px;
 }
 
-#error {
-    color: red;
+.errormsg {
+    color: red !important;
 }
+
 .bitform .tabs {
     border-radius: 5px 5px 0 0;
 }
@@ -202,7 +216,7 @@ input[type=text].search-bar {
     background-color: #EEC133;
 }
 
-.card .card-action span:last-child{
+.card .card-action span:last-child {
     float: right;
 }
 
@@ -229,7 +243,11 @@ input[type=text].search-bar {
 }
 
 .dark-blue {
-    background-color: #15334d;
+    background-color: #15334d!important;
+}
+
+.dark-blue.lighten {
+    background-color: #28465f!important;
 }
 
 .post {
@@ -250,4 +268,27 @@ input[type="file"] {
 
 .edit-profile .pad0 {
     padding: 0;
+}
+
+.valign {
+    position: absolute;
+    left: 50%!important;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.err404 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.err404 h1 {
+    font-size: 7rem;
+    width: 100%;
+}
+
+.err404 h2 {
+    font-size: 2.5rem;
+    width: 100%;
 }

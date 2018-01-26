@@ -1,4 +1,4 @@
-import CommunicationService from "./communicationService";
+import { commService } from "./communicationService";
 import ProfileDTO from "../components/profile/profileDTO";
 import UserDTO from "../components/user/userDTO";
 import TextPostDTO from "../dto/textPostDTO";
@@ -7,13 +7,10 @@ import ImagePostDTO from "../dto/imagePostDTO";
 import CommentDTO from "../dto/commentDTO";
 import { POSTS_PER_PAGE } from "../constants";
 
-export default class DataService {
-    constructor() {
-        this.commService = new CommunicationService();
-    }
+class DataService {
 
     getProfile(callback) {
-        this.commService.getRequest("profile", (result) => {
+        commService.getRequest("profile", (result) => {
             const { userId, name, email, about, postsCount, commentsCount, aboutShort, avatarUrl } = result.data;
             const profile = new ProfileDTO(userId, name, email, aboutShort, about, avatarUrl, postsCount, commentsCount);
             callback(profile);
@@ -24,7 +21,7 @@ export default class DataService {
 
     getUser(id, callback) {
         const requestUrl = `users/${id}`;
-        this.commService.getRequest(requestUrl, (result) => {
+        commService.getRequest(requestUrl, (result) => {
             const { userId, name, email, about, postsCount, commentsCount, aboutShort, avatarUrl } = result.data;
             const profile = new ProfileDTO(userId, name, email, aboutShort, about, avatarUrl, postsCount, commentsCount);
             callback(profile);
@@ -34,7 +31,7 @@ export default class DataService {
     }
 
     updateProfile(data, dataHandler, errorHandler) {
-        this.commService.putRequest("Profiles", data, (response) => {
+        commService.putRequest("Profiles", data, (response) => {
             dataHandler(response);
         }, (error) => {
             console.log(error);
@@ -44,7 +41,7 @@ export default class DataService {
 
     getPeople(peopleHandler) {
         let people = [];
-        this.commService.getRequest("users",
+        commService.getRequest("users",
             (response) => {
                 response.data.forEach(users => {
                     const { id, name, aboutShort, avatarUrl, lastPostDate } = users;
@@ -61,7 +58,7 @@ export default class DataService {
 
     getPosts(skip, postsHandler) {
         let posts = [];
-        this.commService.getRequest(`Posts/?$orderby=DateCreated desc&$skip=${skip}&$top=${POSTS_PER_PAGE}`,
+        commService.getRequest(`Posts/?$orderby=DateCreated desc&$skip=${skip}&$top=${POSTS_PER_PAGE}`,
             (response) => {
                 response.data.forEach(post => {
                     const { id, dateCreated, userId, userDisplayName, type, text, commentsNum, imageUrl, videoUrl } = post;
@@ -85,7 +82,7 @@ export default class DataService {
     }
 
     getPostsCount(responseHandler) {
-        this.commService.getRequest("posts/count",
+        commService.getRequest("posts/count",
             (response) => {
                 console.log(response);
                 responseHandler(response);
@@ -93,7 +90,7 @@ export default class DataService {
     }
 
     newPost(type, postData, responseHandler) {
-        this.commService.postRequest(`${type}Posts`, postData,
+        commService.postRequest(`${type}Posts`, postData,
             (response) => {
                 responseHandler(response);
             }, (error) => {
@@ -102,7 +99,7 @@ export default class DataService {
     }
 
     deletePost(id, responseHandler) {
-        this.commService.deleteRequest(`Posts/${id}`, (response) => {
+        commService.deleteRequest(`Posts/${id}`, (response) => {
             responseHandler(response);
         }, (error) => {
             console.log(error);
@@ -111,7 +108,7 @@ export default class DataService {
 
     getComments(postId, responseHandler) {
         let comments = [];
-        this.commService.getRequest(`Comments?postId=${postId}`,
+        commService.getRequest(`Comments?postId=${postId}`,
             (response) => {
                 response.data.forEach(commentData => {
                     const { id, dateCreated, body, postId, authorName, authorId } = commentData;
@@ -131,7 +128,7 @@ export default class DataService {
             body: comment,
             postId: postId
         };
-        this.commService.postRequest("Comments", data,
+        commService.postRequest("Comments", data,
             (response) => {
                 responseHandler(response);
             },
@@ -141,7 +138,7 @@ export default class DataService {
     }
 
     getSinglePost(type, postId, responseHandler) {
-        this.commService.getRequest(`${type}Posts/${postId}`, (response) => {
+        commService.getRequest(`${type}Posts/${postId}`, (response) => {
             responseHandler(response);
         }, (error) => {
             console.log(error);
@@ -152,7 +149,7 @@ export default class DataService {
         let formData = new FormData();
         formData.append("file", file);
 
-        this.commService.uploadRequest("upload", formData, (response) => {
+        commService.uploadRequest("upload", formData, (response) => {
             responseHandler(response);
         }, (error) => {
             errorHandler(error);
@@ -161,3 +158,5 @@ export default class DataService {
 
     }
 }
+
+export const dataService = new DataService(); 

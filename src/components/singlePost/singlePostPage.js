@@ -1,6 +1,6 @@
 import React from "react";
-import ValidationService from "../../service/validationService";
-import DataService from "../../service/dataService";
+import { validationService } from "../../service/validationService";
+import { dataService } from "../../service/dataService";
 import TextPost from "../feed/textPost";
 import ImagePost from "../feed/imagePost";
 import VideoPost from "../feed/videoPost";
@@ -18,9 +18,6 @@ export default class SinglePostPage extends React.Component {
             myId: "",
             commentError: ""
         };
-
-        this.validationService = new ValidationService();
-        this.dataService = new DataService();
 
         this.bindEventHandlers();
     }
@@ -44,16 +41,16 @@ export default class SinglePostPage extends React.Component {
         const comment = this.state.comment;
         const postId = this.props.match.params.postId;
 
-        this.validationService.isCommentValid(comment,
+        validationService.isCommentValid(comment,
             (comment) => {
-                this.dataService.newComment(comment, postId,
+                dataService.newComment(comment, postId,
                     (response) => {
                         this.setState({
                             comment: "",
                             commentError: ""
                         });
                         this.loadData();
-                        this.getSinglePost();   
+                        this.getSinglePost();
                     });
             }, (error) => {
                 this.setState({
@@ -64,14 +61,14 @@ export default class SinglePostPage extends React.Component {
 
     loadData() {
         const postId = this.props.match.params.postId;
-        this.dataService.getComments(postId,
+        dataService.getComments(postId,
             (comments) => {
                 this.setState({
                     comments: comments
                 });
             });
 
-        this.dataService.getProfile(
+        dataService.getProfile(
             (profile) => {
                 this.setState({
                     myId: profile.userId
@@ -82,7 +79,7 @@ export default class SinglePostPage extends React.Component {
     getSinglePost() {
         const postId = this.props.match.params.postId;
         const postType = this.props.match.params.type;
-        this.dataService.getSinglePost(postType, postId,
+        dataService.getSinglePost(postType, postId,
             (singlePost) => {
                 this.setState({
                     postData: singlePost.data
@@ -139,7 +136,7 @@ export default class SinglePostPage extends React.Component {
 
                     </div>
                     <div className="col s12 m8 offset-m2">
-                        <p id="error">{this.state.commentError ? `${this.state.commentError}` : ""}</p>
+                        <p className="errormsg">{this.state.commentError ? `${this.state.commentError}` : ""}</p>
                     </div>
                 </div>
 

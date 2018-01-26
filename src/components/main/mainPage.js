@@ -1,6 +1,8 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Header from "../common/header";
+import Footer from "../common/footer";
+import NoMatch from "../common/nomatch";
 import ProfilePage from "../profile/profilePage";
 import People from "../user/people";
 import UserPage from "../user/userPage";
@@ -15,15 +17,19 @@ class Main extends React.Component {
     render() {
         return (
             <div className="main-bg">
-                <Header />
-                <Switch>
-                    <Redirect exact from="/" to="/feed"/>
-                    <Route exact path="/feed" component={FeedPage} />
-                    <Route path="/feed/:type/:postId" component={SinglePostPage}/>
-                    <Route path="/people" component={People} />
-                    <Route exact path="/profile" component={ProfilePage} />
-                    <Route path="/profile/:id" component={UserPage} />
-                </Switch>
+                <div className="wrapper">
+                    <Header />
+                    <Switch>
+                        <Redirect exact from="/" to="/feed" />
+                        <Route exact path="/feed" component={FeedPage} />
+                        <Route path="/feed/:type/:postId" component={SinglePostPage} />
+                        <Route path="/people" component={People} />
+                        <Route exact path="/profile" component={ProfilePage} />
+                        <Route path="/profile/:id" component={UserPage} />
+                        <Route component={NoMatch} />
+                    </Switch>
+                </div>
+                <Footer />
             </div>
         );
     }

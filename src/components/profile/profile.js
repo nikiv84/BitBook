@@ -2,7 +2,6 @@ import React from "react";
 import { AVATAR_PLACEHOLDER } from "../../constants";
 import PropTypes from "prop-types";
 import EditProfile from "./editProfile";
-import DataService from "../../service/dataService";
 
 const customStyles = {
     content: {
@@ -20,7 +19,6 @@ const customStyles = {
 export default class Profile extends React.Component {
     constructor(props) {
         super(props);
-        this.dataService = new DataService();
 
         this.state = {
             clickedOnEdit: false

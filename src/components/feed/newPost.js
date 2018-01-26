@@ -1,8 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
-import DataService from "../../service/dataService";
-import ValidationService from "../../service/validationService";
-import RedirectService from "../../service/redirectService";
+import { dataService } from "../../service/dataService";
+import { validationService } from "../../service/validationService";
 import PropTypes from "prop-types";
 import { AVATAR_PLACEHOLDER } from "../../constants";
 
@@ -38,10 +37,6 @@ export default class NewPost extends React.Component {
             },
             file: null
         };
-
-        this.dataService = new DataService();
-        this.validationService = new ValidationService();
-
         this.bindEventHandlers();
 
     }
@@ -86,8 +81,7 @@ export default class NewPost extends React.Component {
     }
 
     previewImage() {
-
-        this.dataService.fileUpload(this.state.file, (response) => {
+        dataService.fileUpload(this.state.file, (response) => {
             this.setState({
                 imageUrl: response.data
             });
@@ -139,15 +133,14 @@ export default class NewPost extends React.Component {
     }
 
     saveTextPost() {
-        event.preventDefault();
 
         let text = {
             text: this.state.text
         };
 
-        this.validationService.isTextPostValid(text,
+        validationService.isTextPostValid(text,
             (text) => {
-                this.dataService.newPost("Text", text,
+                dataService.newPost("Text", text,
                     (response) => {
                         this.closeModal();
                         this.setState({
@@ -169,22 +162,21 @@ export default class NewPost extends React.Component {
 
     saveImagePost() {
 
-        event.preventDefault();
-
         let image = {
             imageUrl: ""
         };
 
-        this.state.imageUrl ? image.imageUrl = this.state.imageUrl : image.imageUrl = AVATAR_PLACEHOLDER;
+        image.imageUrl = this.state.imageUrl ? this.state.imageUrl : AVATAR_PLACEHOLDER;
 
 
-        this.validationService.isImagePostValid(image,
+        validationService.isImagePostValid(image,
             (image) => {
-                this.dataService.newPost("Image", image,
+                dataService.newPost("Image", image,
                     (response) => {
                         this.closeModal();
                         this.setState({
-                            imageUrl: image.imageUrl
+                            imageUrl: "",
+                            file: null
                         });
                         this.props.reloadFeed();
                     });
@@ -200,15 +192,13 @@ export default class NewPost extends React.Component {
 
     saveVideoPost() {
 
-        event.preventDefault();
-
         let videoUrl = {
             videoUrl: this.state.videoUrl
         };
 
-        this.validationService.isVideoPostValid(videoUrl,
+        validationService.isVideoPostValid(videoUrl,
             (videoUrl) => {
-                this.dataService.newPost("Video", videoUrl,
+                dataService.newPost("Video", videoUrl,
                     (response) => {
                         this.closeModal();
                         this.setState({
@@ -270,17 +260,13 @@ export default class NewPost extends React.Component {
                     <div className="row">
                         <div className="col s12 pad0">
                             <label htmlFor="file-upload" className="waves-effect waves-light btn custom-file-upload blue darken-4">
-<<<<<<< HEAD
                                 <i className="material-icons left">wallpaper</i> Upload Image
-=======
-                                <i className="material-icons left">wallpaper</i> Choose image
->>>>>>> e263c170f93265e8760f68248c5b36fe5cad5af0
                             </label>
                             <input id="file-upload" type="file" onChange={this.onChange} />
                             <button onClick={this.previewImage} className="waves-effect waves-light btn">Upload</button>
                         </div>
                         <div className="col s12">
-                            {this.state.imageUrl ? <img src={this.state.imageUrl} /> : ""}
+                            {this.state.imageUrl ? <img src={this.state.imageUrl} width="100%" /> : ""}
                         </div>
                     </div>
 

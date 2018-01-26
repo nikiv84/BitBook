@@ -6,10 +6,6 @@ export default class FeedFilter extends React.Component {
         this.bindEventHandlers();
     }
 
-    // componentDidMount() {
-    //     var elem = document.querySelector(".dropdown-trigger");
-    //     var instance = new M.Dropdown(elem);
-    // }
     componentDidMount() {
         var elem = document.querySelector("select");
         var instance = new M.Select(elem);
@@ -21,9 +17,7 @@ export default class FeedFilter extends React.Component {
 
     handleSelection(event) {
         const filter = event.target.value;
-
         this.props.filterPosts(filter);
-
     }
 
     render() {

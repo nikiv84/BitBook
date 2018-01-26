@@ -1,6 +1,5 @@
 import React from "react";
-import DataService from "../../service/dataService";
-import CommunicationService from "../../service/communicationService";
+import {dataService} from "../../service/dataService";
 import User from "./user";
 import Search from "../common/search";
 import Profile from "../profile/profilePage";
@@ -15,13 +14,11 @@ export default class People extends React.Component {
             me: []
         };
 
-        this.commService = new CommunicationService();
-        this.dataService = new DataService();
         this.searchHandler = this.searchHandler.bind(this);
     }
 
     getUsers() {
-        this.dataService.getPeople((users) => {
+        dataService.getPeople((users) => {
             console.log("Ovde", users);
             this.setState({
                 users: users,
@@ -46,7 +43,7 @@ export default class People extends React.Component {
     }
 
     getMyProfileId() {
-        this.dataService.getProfile((profileData) => {
+        dataService.getProfile((profileData) => {
             this.setState({
                 me: profileData.userId
             });

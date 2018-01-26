@@ -1,30 +1,26 @@
-import CommunicationService from "./communicationService";
-import RedirectService from "./redirectService";
+import { commService } from "./communicationService";
+import { redirectService } from "./redirectService";
 import { SESSION_ID_KEY } from "../constants";
 
 class AuthService {
-    constructor() {
-        this.commService = new CommunicationService();
-        this.redirectService = new RedirectService();
-    }
 
     isUserAuth() {
         return !!sessionStorage.getItem(SESSION_ID_KEY);
     }
 
     login(data, callback) {
-        this.commService.postRequest("login", data, (response) => {
+        commService.postRequest("login", data, (response) => {
             sessionStorage.setItem(SESSION_ID_KEY, response.data.sessionId);
-            this.redirectService.redirectTo("/feed");
+            redirectService.redirectTo("/feed");
         }, (error) => {
             callback(error.response.data.error.message);
         });
     }
 
     register(data, callback) {
-        this.commService.postRequest("register", data,
+        commService.postRequest("register", data,
             (response) => {
-                this.redirectService.redirectTo("/");
+                redirectService.redirectTo("/");
             }, (error) => {
                 callback(error.response.data.error.message);
             });
@@ -33,9 +29,9 @@ class AuthService {
 
     logOut() {
         sessionStorage.removeItem(SESSION_ID_KEY);
-        this.redirectService.redirectTo("/");
+        redirectService.redirectTo("/");
     }
 
 }
 
-export default AuthService;
+export const authService = new AuthService();

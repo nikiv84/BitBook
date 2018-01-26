@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import AuthService from "../../service/authService";
-import ValidationService from "../../service/validationService";
+import { authService } from "../../service/authService";
+import { validationService } from "../../service/validationService";
 
 class LoginForm extends React.Component {
 
@@ -15,8 +15,6 @@ class LoginForm extends React.Component {
             loading: false
         };
         this.initBind();
-        this.authService = new AuthService();
-        this.validService = new ValidationService();
     }
 
     initBind() {
@@ -59,8 +57,8 @@ class LoginForm extends React.Component {
         };
 
 
-        if (this.validService.isLoginFormValid(data, this.callbackFunc)) {
-            this.authService.login(data, (errors) => {
+        if (validationService.isLoginFormValid(data, this.callbackFunc)) {
+            authService.login(data, (errors) => {
                 this.setState({
                     isNotValid: true,
                     errorMsg: errors,
@@ -97,7 +95,7 @@ class LoginForm extends React.Component {
                         <button className="waves-effect waves-light btn registration" onClick={this.loginHandler}>Login</button>
                     </form>
 
-                    <p id="error">{this.state.errorMsg.allFields ? `${this.state.errorMsg.allFields}` : `${this.state.errorMsg}`}</p>
+                    <p className="errormsg">{this.state.errorMsg.allFields ? `${this.state.errorMsg.allFields}` : `${this.state.errorMsg}`}</p>
                 </div>
             </div>
         );

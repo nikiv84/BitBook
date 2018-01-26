@@ -1,6 +1,8 @@
-export default class RedirectService {
+class RedirectService {
 
     redirectTo(location) {
         window.location.assign(`#${location}`);
     }
 }
+
+export const redirectService = new RedirectService();

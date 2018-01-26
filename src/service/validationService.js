@@ -14,6 +14,25 @@ class ValidationService {
     }
 
     isEditFormValid(data, callback) {
+        let errors = {};
+
+        if (!this.isNameValid(data)) {
+            errors.name = "Name must contain first and last name!";
+            callback(errors);
+            return false;
+        }
+
+        if (!this.isEmailValid(data)) {
+            errors.email = "Email is not in valid format!";
+            callback(errors);
+            return false;
+        }
+
+        if (!this.isLinkValid(data)) {
+            errors.link = "Link is not in valid format!";
+            callback(errors);
+            return false;
+        }
 
         if (!this.hasAllRequiredFields(data)) {
             errors.allFields = "All fields must be filled out!";
@@ -21,21 +40,6 @@ class ValidationService {
             return false;
         }
 
-        if (!this.isNameValid(data)) {
-            errorMsgs.push("Name must contain first and last name!");
-            callback(errorMsgs);
-            return false;
-        }
-        if (!this.isEmailValid(data)) {
-            errorMsgs.push("Email is not in valid format!");
-            callback(errorMsgs);
-            return false;
-        }
-        if (!this.isLinkValid(data)) {
-            errorMsgs.push("Link is not in valid format!");
-            callback(errorMsgs);
-            return false;
-        }
         return true;
     }
 
@@ -100,12 +104,6 @@ class ValidationService {
         let errors = {};
         if (!this.hasAllRequiredFields(data)) {
             errors.allFields = "Post must contain text!";
-            errorCallback(errors);
-            return false;
-        }
-
-        if (!this.isLinkValid(data)) {
-            errors.link = "Link is not valid!";
             errorCallback(errors);
             return false;
         }
@@ -198,7 +196,7 @@ class ValidationService {
     }
 
     isLinkValid(data) {
-        if (data.avatarUrl == "") {
+        if (data.avatarUrl !== "") {
             const re = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
             const isOK = re.test(data.avatarUrl);
             return isOK;
@@ -207,8 +205,8 @@ class ValidationService {
     }
 
     isYouTubeLinkValid(data) {
-        if (data.videoUrl == "") {
-            const re = /^http:\/\/(?:www\.)?youtube.com\/watch\?v=\w+(&\S*)?$/;
+        if (data.videoUrl !== "") {
+            const re = /(https?:\/\/)?(?:www\.)?youtube.com\/watch\?v=\w+(&\S*)?$/;
             const isOk = re.test(data.videoUrl);
             return isOk;
         }
@@ -218,4 +216,4 @@ class ValidationService {
 
 
 
-export default ValidationService;
+export const validationService = new ValidationService();

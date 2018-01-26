@@ -2,12 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Iframe from "react-iframe";
-import RedirectService from "../../service/redirectService";
-import DataService from "../../service/dataService";
+import { redirectService } from "../../service/redirectService";
+import { dataService } from "../../service/dataService";
 
 const VideoPost = (props) => {
-    const redirectService = new RedirectService();
-    const dataService = new DataService();
     const { videoUrl, id, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
     const myId = props.myId;
 
