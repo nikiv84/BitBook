@@ -2,7 +2,7 @@
 
 ![No more Tabs](/src/assets/img/logo.png)
 
-BitBook is a social media-like Single Page Application in React.js. Users can register, login, post an image, video, or text, comment on other users' posts, update their profile etc. All forms are validated on client side, and server response errors are being handled.
+BitBook is a social network-like Single Page Application in React.js. Users can register, login, post an image, video, or text, comment on other users' posts, update their profile etc. All forms are validated on client side, and server response errors are being handled.
 
 DEMO: [BitBook app](http://bitbook.nikolicivan.com) 
 
