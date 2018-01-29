@@ -3674,7 +3674,7 @@ var RedirectService = function () {
     _createClass(RedirectService, [{
         key: "redirectTo",
         value: function redirectTo(location) {
-            window.location.assign("#" + location);
+            window.location.assign("" + location);
         }
     }]);
 
