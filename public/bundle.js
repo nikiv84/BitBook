@@ -2871,36 +2871,37 @@ var ValidationService = function () {
             if (!this.hasAllRequiredFields(data)) {
                 errors.allFields = "All fields must be filled out!";
                 callback(errors);
+                return false;
             }
 
             if (!this.isNameValid(data)) {
                 errors.name = "Name must contain first and last name!";
                 callback(errors);
-                // return false;
+                return false;
             }
 
             if (!this.isUsernameValid(data)) {
                 errors.username = "Username must be longer than 3 characters!";
                 callback(errors);
-                // return false;
+                return false;
             }
 
             if (!this.isEmailValid(data)) {
                 errors.email = "Email is not in valid format!";
                 callback(errors);
-                // return false;
+                return false;
             }
 
             if (!this.isPasswordValid(data)) {
                 errors.password = "Password must be longer than 6 characters!";
                 callback(errors);
-                // return false;
+                return false;
             }
 
             if (!this.isPasswordConfirm(data)) {
                 errors.repeatPassword = "Passwords must match!";
                 callback(errors);
-                // return false;
+                return false;
             }
 
             if (Object.keys(errors).length !== 0) {
@@ -2990,7 +2991,7 @@ var ValidationService = function () {
     }, {
         key: "isPasswordConfirm",
         value: function isPasswordConfirm(data) {
-            if (data.password != data.repeatPassword && data.repeatPassword !== "") {
+            if (data.password !== data.repeatPassword && data.repeatPassword !== "") {
                 return false;
             }
             return true;
