@@ -19,11 +19,6 @@ class Search extends React.Component {
         if (instantSearchEnabled) {
             this.props.onSearchRequested(searchString);
         }
-<<<<<<< HEAD
-=======
-        console.log(searchString);
-
->>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
     }
 
     onSearchClicked() {

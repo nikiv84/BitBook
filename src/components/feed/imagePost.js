@@ -3,10 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { redirectService } from "../../service/redirectService";
 import { dataService } from "../../service/dataService";
-<<<<<<< HEAD
 import { ucFirst } from "../common/helpers";
-=======
->>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
 
 const ImagePost = (props) => {
     const { imageUrl, id, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
@@ -41,11 +38,7 @@ const ImagePost = (props) => {
                 <button className="waves-effect waves-light btn fl-right" onClick={onDeletion} style={{ display: showDeleteButton }}><i className="material-icons left">delete</i>Delete Post</button>
             </div>
             <div className="card-action">
-<<<<<<< HEAD
                 <span>{ucFirst(type)} post</span>
-=======
-                <span>{type} post</span>
->>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
                 <span>{commentsNum} comments</span>
             </div>
         </div>

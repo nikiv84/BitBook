@@ -49,61 +49,37 @@ class ValidationService {
         if (!this.hasAllRequiredFields(data)) {
             errors.allFields = "All fields must be filled out!";
             callback(errors);
-<<<<<<< HEAD
             return false;
-=======
-
->>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
         }
 
         if (!this.isNameValid(data)) {
             errors.name = "Name must contain first and last name!";
             callback(errors);
-<<<<<<< HEAD
             return false;
-=======
-            // return false;
->>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
         }
 
         if (!this.isUsernameValid(data)) {
             errors.username = "Username must be longer than 3 characters!";
             callback(errors);
-<<<<<<< HEAD
             return false;
-=======
-            // return false;
->>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
         }
 
         if (!this.isEmailValid(data)) {
             errors.email = "Email is not in valid format!";
             callback(errors);
-<<<<<<< HEAD
             return false;
-=======
-            // return false;
->>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
         }
 
         if (!this.isPasswordValid(data)) {
             errors.password = "Password must be longer than 6 characters!";
             callback(errors);
-<<<<<<< HEAD
             return false;
-=======
-            // return false;
->>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
         }
 
         if (!this.isPasswordConfirm(data)) {
             errors.repeatPassword = "Passwords must match!";
             callback(errors);
-<<<<<<< HEAD
             return false;
-=======
-            // return false;
->>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
         }
 
         if (Object.keys(errors).length !== 0) {
@@ -187,11 +163,7 @@ class ValidationService {
     }
 
     isPasswordConfirm(data) {
-<<<<<<< HEAD
         if ((data.password !== data.repeatPassword) && data.repeatPassword !== "") {
-=======
-        if ((data.password != data.repeatPassword) && data.repeatPassword !== "") {
->>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
             return false;
         }
         return true;

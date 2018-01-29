@@ -4,29 +4,19 @@
   "description": "Sample Blog app in React",
   "private": true,
   "scripts": {
-<<<<<<< HEAD
     "start": "node server.js",
     "build": "webpack",
     "dev": "webpack-dev-server -d"
   },
   "engines": {
     "node": "8.9.4"
-=======
-    "dev": "webpack-dev-server -d",
-    "postinstall": "webpack -p",
-    "build": "webpack",
-    "start": "node server.js"
->>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
   },
   "author": "BIT",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.17.1",
     "babel-polyfill": "^6.26.0",
-<<<<<<< HEAD
     "express": "^4.16.2",
-=======
->>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
     "jquery": "^3.2.1",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",

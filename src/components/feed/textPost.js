@@ -1,16 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import CommunicationService from "../../service/communicationService";
-<<<<<<< HEAD
 import { dataService } from "../../service/dataService";
 import { redirectService } from "../../service/redirectService";
 import { Link } from "react-router-dom";
 import { ucFirst } from "../common/helpers";
-=======
-import {dataService} from "../../service/dataService";
-import { redirectService } from "../../service/redirectService";
-import { Link } from "react-router-dom";
->>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
 
 const TextPost = (props) => {
     const { text, id, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
@@ -52,11 +46,7 @@ const TextPost = (props) => {
             </div>
 
             <div className="card-action">
-<<<<<<< HEAD
                 <span>{ucFirst(type)} post</span>
-=======
-                <span>{type} post</span>
->>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
                 <span>{commentsNum} comments</span>
             </div>
 
