@@ -2,8 +2,9 @@ module.exports = {
     entry: __dirname + "/src/index",
     target: "web",
     output: {
-        filename: "bundle.js",
-        publicPath: "/"
+        path: __dirname,
+        filename: "./public/bundle.js",
+        publicPath: "./public"
     },
     devServer: {
         contentBase: __dirname + "/src",
