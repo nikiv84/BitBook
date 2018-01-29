@@ -49,6 +49,11 @@ class DataService {
                     people.push(user);
                 });
                 peopleHandler(people);
+<<<<<<< HEAD
+=======
+                console.log(people);
+
+>>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
             }, (error) => {
                 console.log(error);
             });
@@ -82,6 +87,10 @@ class DataService {
     getPostsCount(responseHandler) {
         commService.getRequest("posts/count",
             (response) => {
+<<<<<<< HEAD
+=======
+                console.log(response);
+>>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
                 responseHandler(response);
             });
     }

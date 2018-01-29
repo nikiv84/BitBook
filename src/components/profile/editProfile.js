@@ -164,6 +164,10 @@ export default class EditProfile extends React.Component {
 
     onChange(e) {
         this.setState({ file: e.target.files[0] });
+<<<<<<< HEAD
+=======
+        console.log(e.target.files[0]);
+>>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
     }
 
     closeModal() {
@@ -172,6 +176,10 @@ export default class EditProfile extends React.Component {
 
     getErrorMsg(errtype) {
         const errorMsg = this.state.errorMsgs[errtype] ? this.state.errorMsgs[errtype]: "";
+<<<<<<< HEAD
+=======
+        console.log(errorMsg);
+>>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
         return <p className="errormsg">{errorMsg}</p>;
     }
 

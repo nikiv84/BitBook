@@ -67,8 +67,12 @@ class RegisterForm extends React.Component {
         });
     }
 
+<<<<<<< HEAD
     registerHandler(e) {
         e.preventDefault();
+=======
+    registerHandler() {
+>>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
         const data = {
             name: this.state.name,
             username: this.state.username,
@@ -84,8 +88,16 @@ class RegisterForm extends React.Component {
                     serverError: errors,
                     loading: false
                 });
+<<<<<<< HEAD
 
             });
+=======
+                console.log(errors);
+            });
+        } else {
+            console.log("Else");
+            console.log(this.state.errorMsg);
+>>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
         }
     }
 

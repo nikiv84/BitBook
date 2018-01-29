@@ -20,7 +20,11 @@ class AuthService {
     register(data, callback) {
         commService.postRequest("register", data,
             (response) => {
+<<<<<<< HEAD
                 redirectService.redirectTo("/login");
+=======
+                redirectService.redirectTo("/");
+>>>>>>> fde72efd108d318247f21039197bc7e8e31a0ce3
             }, (error) => {
                 callback(error.response.data.error.message);
             });
