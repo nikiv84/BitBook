@@ -1,7 +1,7 @@
 {
-  "name": "blog",
+  "name": "BitBook",
   "version": "1.0.0",
-  "description": "Sample Blog app in React",
+  "description": "A social network Single Page Application",
   "private": true,
   "scripts": {
     "start": "node server.js",
@@ -11,7 +11,7 @@
   "engines": {
     "node": "8.9.4"
   },
-  "author": "BIT",
+  "author": "Ivan Nikolic",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.17.1",
