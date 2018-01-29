@@ -67,7 +67,8 @@ class RegisterForm extends React.Component {
         });
     }
 
-    registerHandler() {
+    registerHandler(e) {
+        e.preventDefault();
         const data = {
             name: this.state.name,
             username: this.state.username,

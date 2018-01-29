@@ -3634,7 +3634,7 @@ var AuthService = function () {
         key: "register",
         value: function register(data, callback) {
             _communicationService.commService.postRequest("register", data, function (response) {
-                _redirectService.redirectService.redirectTo("/");
+                _redirectService.redirectService.redirectTo("/login");
             }, function (error) {
                 callback(error.response.data.error.message);
             });
@@ -39710,9 +39710,10 @@ var RegisterForm = function (_React$Component) {
         }
     }, {
         key: "registerHandler",
-        value: function registerHandler() {
+        value: function registerHandler(e) {
             var _this2 = this;
 
+            e.preventDefault();
             var data = {
                 name: this.state.name,
                 username: this.state.username,
