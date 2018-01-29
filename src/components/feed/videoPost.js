@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Iframe from "react-iframe";
 import { redirectService } from "../../service/redirectService";
 import { dataService } from "../../service/dataService";
+import { ucFirst } from "../common/helpers";
 
 const VideoPost = (props) => {
     const { videoUrl, id, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
@@ -48,7 +49,7 @@ const VideoPost = (props) => {
                 <button className="waves-effect waves-light btn fl-right" onClick={onDeletion} style={{ display: showDeleteButton }}><i className="material-icons left">delete</i>Delete Post</button>
             </div>
             <div className="card-action">
-                <span>{type} post</span>
+                <span>{ucFirst(type)} post</span>
                 <span>{commentsNum} comments</span>
             </div>
 
