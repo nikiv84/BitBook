@@ -69,7 +69,6 @@ export default class NewPost extends React.Component {
     handleChange(event) {
         const value = event.target.value;
         const name = event.target.name;
-        console.log(value);
 
         this.setState({
             [name]: value

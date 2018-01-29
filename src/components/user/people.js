@@ -19,7 +19,6 @@ export default class People extends React.Component {
 
     getUsers() {
         dataService.getPeople((users) => {
-            console.log("Ovde", users);
             this.setState({
                 users: users,
                 filteredUsers: users

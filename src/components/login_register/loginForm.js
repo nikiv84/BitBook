@@ -65,8 +65,6 @@ class LoginForm extends React.Component {
                     loading: false
                 });
             });
-        } else {
-            console.log("Else");
         }
     }
 

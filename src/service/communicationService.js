@@ -78,7 +78,6 @@ class CommunicationService {
     }
 
     uploadRequest(url, data, successHandler, errorHandler) {
-        console.log(data);
         const requestUrl = `${BASE_URL}/${url}`;
         let headers = this.createHeaders();
         headers["Content-Type"] = "multipart/form-data";

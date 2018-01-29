@@ -49,8 +49,6 @@ class DataService {
                     people.push(user);
                 });
                 peopleHandler(people);
-                console.log(people);
-
             }, (error) => {
                 console.log(error);
             });
@@ -84,7 +82,6 @@ class DataService {
     getPostsCount(responseHandler) {
         commService.getRequest("posts/count",
             (response) => {
-                console.log(response);
                 responseHandler(response);
             });
     }

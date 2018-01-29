@@ -83,11 +83,8 @@ class RegisterForm extends React.Component {
                     serverError: errors,
                     loading: false
                 });
-                console.log(errors);
+
             });
-        } else {
-            console.log("Else");
-            console.log(this.state.errorMsg);
         }
     }
 

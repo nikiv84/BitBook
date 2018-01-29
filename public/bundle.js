@@ -1400,7 +1400,6 @@ var DataService = function () {
                     people.push(user);
                 });
                 peopleHandler(people);
-                console.log(people);
             }, function (error) {
                 console.log(error);
             });
@@ -1442,7 +1441,6 @@ var DataService = function () {
         key: "getPostsCount",
         value: function getPostsCount(responseHandler) {
             _communicationService.commService.getRequest("posts/count", function (response) {
-                console.log(response);
                 responseHandler(response);
             });
         }
@@ -5249,7 +5247,6 @@ var CommunicationService = function () {
     }, {
         key: "uploadRequest",
         value: function uploadRequest(url, data, successHandler, errorHandler) {
-            console.log(data);
             var requestUrl = _constants.BASE_URL + "/" + url;
             var headers = this.createHeaders();
             headers["Content-Type"] = "multipart/form-data";
@@ -8431,7 +8428,7 @@ var _app2 = _interopRequireDefault(_app);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom2.default.render(_react2.default.createElement(
-    _reactRouterDom.HashRouter,
+    _reactRouterDom.BrowserRouter,
     null,
     _react2.default.createElement(_app2.default, null)
 ), document.getElementById("app"));
@@ -36608,7 +36605,6 @@ var EditProfile = function (_React$Component) {
         key: "onChange",
         value: function onChange(e) {
             this.setState({ file: e.target.files[0] });
-            console.log(e.target.files[0]);
         }
     }, {
         key: "closeModal",
@@ -36619,7 +36615,6 @@ var EditProfile = function (_React$Component) {
         key: "getErrorMsg",
         value: function getErrorMsg(errtype) {
             var errorMsg = this.state.errorMsgs[errtype] ? this.state.errorMsgs[errtype] : "";
-            console.log(errorMsg);
             return _react2.default.createElement(
                 "p",
                 { className: "errormsg" },
@@ -37726,7 +37721,6 @@ var People = function (_React$Component) {
             var _this2 = this;
 
             _dataService.dataService.getPeople(function (users) {
-                console.log("Ovde", users);
                 _this2.setState({
                     users: users,
                     filteredUsers: users
@@ -37933,7 +37927,6 @@ var Search = function (_React$Component) {
             if (instantSearchEnabled) {
                 this.props.onSearchRequested(searchString);
             }
-            console.log(searchString);
         }
     }, {
         key: "onSearchClicked",
@@ -38384,7 +38377,6 @@ var NewPost = function (_React$Component) {
         value: function handleChange(event) {
             var value = event.target.value;
             var name = event.target.name;
-            console.log(value);
 
             this.setState(_defineProperty({}, name, value));
         }
@@ -39529,8 +39521,6 @@ var LoginForm = function (_React$Component) {
                         loading: false
                     });
                 });
-            } else {
-                console.log("Else");
             }
         }
     }, {
@@ -39737,11 +39727,7 @@ var RegisterForm = function (_React$Component) {
                         serverError: errors,
                         loading: false
                     });
-                    console.log(errors);
                 });
-            } else {
-                console.log("Else");
-                console.log(this.state.errorMsg);
             }
         }
     }, {
